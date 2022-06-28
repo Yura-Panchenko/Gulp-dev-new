@@ -1,0 +1,48 @@
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 23px 50px 23px 50px;
+    border-bottom: 1px solid #ccc;
+
+    a {
+        text-decoration: none;
+        font-size: 15px;
+        line-height: 20px;
+
+        &:hover {
+            color: #ff6336;
+            transition: all 0.4s;
+        }
+    }
+}
+
+.logo-wrapp {
+    display: flex;
+    align-items: center;
+}
+
+.header-menu {
+    display: flex;
+    list-style: none;
+    padding: 0 0 0 50px;
+    margin: 0;
+}
+
+.list-item1,
+.list-item2 {
+    padding-right: 57px;
+}
+
+.list-item3 {
+    padding-right: 42px;
+}
+
+.list-item4 {
+    padding-right: 49px;
+}
+
+.header-menu a {
+    color: #000;
+}

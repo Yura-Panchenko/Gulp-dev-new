@@ -1,0 +1,21 @@
+body {
+    font: 400 20px/30px "Graphik LCG", Arial, Helvetica, sans-serif;
+    color: #000;
+}
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1320px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+img {
+    vertical-align: top;
+    max-width: 100%;
+    height: auto;
+}
