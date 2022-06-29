@@ -1,5 +1,5 @@
-const devDir = './dev';
-const publicDir = './public';
+const devDir = './src';
+const publicDir = './dist';
 
 module.exports = {
 	minifyScripts: false,

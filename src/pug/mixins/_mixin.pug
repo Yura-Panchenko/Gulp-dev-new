@@ -1,0 +1,123 @@
+//- -var bodyClass= "home"; // add class on body
+	body(class= bodyClass)
+
+//- - var curentClass = 'home'
+	ul
+		li(class={active: curentClass === 'home'}): a(href="index.html") home
+		li(class={active: curentClass === 'about'}): a(href="about.html") about  us
+		li(class={active: curentClass === 'properties'}): a(href="properties.html") properties
+		li(class={active: curentClass === 'region'}): a(href="region.html") the region
+		li(class={active: curentClass === 'contact'}): a(href="contact.html") contact us
+
+//- insert on the page
+	ul.social
+		each ico in ["icon-linkedin", "icon-youtube", "icon-twitter", "icon-pinterest", "icon-instagram2", "icon-facebook"]
+			li: a(href="#"): span(class=""+ ico)
+
+//- +bgRetina({
+//-   imgName: 'slide-01'
+//- })
+mixin bgRetina(obj)
+	.bg-retina
+		span(data-srcset="images/small-"+obj.imgName+".jpg, images/small-"+obj.imgName+"@2x.jpg 2x")
+		span(data-srcset="images/"+obj.imgName+".jpg", data-media="(min-width: 768px)")
+
+//- +retina ({
+//-  imgName: 'img-01',
+//-  alt: 'logo'
+//- })
+
+mixin retina(obj)
+	picture
+		source(srcset='images/small-'+obj.imgName+'.jpg, images/small-'+obj.imgName+'-2x.jpg 2x, images/small-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 767px)')
+		source(srcset='images/medium-'+obj.imgName+'.jpg, images/medium-'+obj.imgName+'-2x.jpg 2x, images/medium-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 1024px)')
+		source(srcset='images/large-'+obj.imgName+'.jpg, images/large-'+obj.imgName+'-2x.jpg 2x, images/large-'+obj.imgName+'-3x.jpg 3x')
+		img(src='images/large-'+obj.imgName+'.jpg', alt= obj.alt || "image description")
+
+//- +retinaPng ({
+//-  imgName: 'img-01',
+//-  alt: 'logo'
+//- })
+
+mixin retinaPng(obj)
+	picture
+		source(srcset='images/small-'+obj.imgName+'.png, images/small-'+obj.imgName+'-2x.png 2x, images/small-'+obj.imgName+'-3x.png 3x', media='(max-width: 767px)')
+		source(srcset='images/medium-'+obj.imgName+'.png, images/medium-'+obj.imgName+'-2x.png 2x, images/medium-'+obj.imgName+'-3x.png 3x', media='(max-width: 1024px)')
+		source(srcset='images/large-'+obj.imgName+'.png, images/large-'+obj.imgName+'-2x.png 2x, images/large-'+obj.imgName+'-3x.png 3x')
+		img(src='images/large-'+obj.imgName+'.png', alt= obj.alt || "image description")
+
+//-
+	-for (var i = 0; i <= 20; i++)
+		tr
+			each item in ['<time datetime="2017-01-31">31.01.17</time>', 'Åpen søknad', '<a href="#"><b>Ole Christian</b></a>', '<a href="#"><b>Storesundsen</b></a>', 'Sivil ingeniør/advokat', 'Interjuet', 'Erstatningsrett', 'Ja', '<ul class="button-list"><li><a class="btn btn-primary btn-sm" href="#">Rediger</a></li></ul>']
+				td!= item
+
+//- +tabsetList([
+//-   {
+//-     text: "Install the MEEDIA app (for phone, tablet or desktop)",
+//-     active: true
+//-   },
+//-   {
+//-     text: "Upload images, sounds and videos from your phone, tablet or computer in seconds"
+//-   },
+//-   {
+//-     text: "Start selling straight away with our suggested pricing and watch the cash roll in!"
+//-   }
+//- ])
+mixin tabsetList(arr)
+	ul.tabset
+		each obj in arr
+			li: a(href="#", class=(obj.active ? 'active' : '') data-tab='#'+obj.dataTab)= obj.item
+//-
+	-for (var i = 1; i <= 18; i++)
+		li: a(href='#'): img(src='images/client-0'+i+'.png', alt='image description')
+
+//- +accordion({
+//-   opener: 'Is Agent &amp; Heroes a reputable company to work with?',
+//-   contentSlide: 'It .'
+//- })
+mixin accordion(obj)
+	a.opener(href="#")= obj.opener
+	.slide
+		.holder
+			p= obj.contentSlide
+
+//- +imgMask({
+//- 	idSvgMask: 'svgmask'
+//- 	mask: 'mask-01.png',
+//- 	imgName: 'img-name',
+//- })
+mixin imgMask(obj)
+	svg(width='100%', height='100%', baseprofile='full', version='1.2')
+		defs
+			mask.mask(id=''+obj.idSvgMask, maskunits='userSpaceOnUse', maskcontentunits='userSpaceOnUse', transform='scale(1)')
+				image(width='100%', height='100%', xlink:href='images/'+obj.mask)
+		image#the-mask(mask='url(#'+obj.idSvgMask+')', width='100%', height='100%', y='0', x='0', xlink:href='images/'+obj.imgName)
+
+//- +breadcrumbs({
+//-   arr: ['item01', 'item02']
+//- })
+mixin breadcrumbs(obj)
+	ul.breadcrumbs
+		-for (var i = 1; i <= obj.arr.length - 1; i++)
+			li: a(href='#')= obj.arr[i - 1]
+		li: span= obj.arr[obj.arr.length - 1]
+
+//- +card({
+//- 		imageName: '',
+//- 		title: '',
+//- 		text: '',
+//- 		link: ''
+//- 	})
+mixin card(obj)
+	.card
+		if (obj.imageName)
+			.card-img: a(href="#"): img(src="images/"+obj.imageName, alt="image description")
+		.card-body
+			if (obj.title)
+				h3.card-title: a(href="#")= obj.title
+			if (obj.text)
+				p= obj.text
+			if (obj.link)
+			.btn-wrap
+				a.btn.btn-default(href="#")= obj.link

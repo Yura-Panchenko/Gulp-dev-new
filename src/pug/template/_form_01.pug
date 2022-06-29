@@ -1,0 +1,42 @@
+.wpcf7
+  form.wpcf7-form(action='#', enctype='multipart/form-data')
+    .column-form
+      .row
+        .col
+          span.wpcf7-form-control-wrap.TextField
+            input.wpcf7-form-control.wpcf7-text.text-field-class.wpcf7-use-title-as-watermark(type='text', name='TextField', placeholder='First name')
+        .col
+          span.wpcf7-form-control-wrap.TextField
+            input.wpcf7-form-control.wpcf7-text.text-field-class.wpcf7-use-title-as-watermark(type='text', name='TextField', placeholder='last name')
+      .row
+        .col
+          span.wpcf7-form-control-wrap.Emailfield
+            input.wpcf7-form-control.wpcf7-text.wpcf7-email.wpcf7-validates-as-required.wpcf7-validates-as-email.email-class.wpcf7-use-title-as-watermark(type='email', name='Emailfield', placeholder='Email address')
+        .col
+          span.wpcf7-form-control-wrap.TextField
+            input.wpcf7-form-control.wpcf7-text.text-field-class.wpcf7-use-title-as-watermark(type='text', name='TextField', placeholder='phone number')
+      .row
+        .col
+          span.datepicker-wrap.wpcf7-form-control-wrap.TextField
+            input.datepicker.wpcf7-form-control.wpcf7-text.text-field-class.wpcf7-use-title-as-watermark(type='text', name='TextField', placeholder='Appointment date')
+        .col
+          span.wpcf7-form-control-wrap.TextField
+            input.wpcf7-form-control.wpcf7-text.text-field-class.wpcf7-use-title-as-watermark(type='text', name='TextField', placeholder='length of Appointment')
+      .row
+        .col
+          span.wpcf7-form-control-wrap.select
+            select.wpcf7-form-control.wpcf7-select.select-class(name='select')
+              option.hidden(value='') best time to connect
+              option(value='One') One
+              option(value='Two') Two
+              option(value='Three') Three
+              option(value='Four') Four
+        .col
+          span.wpcf7-form-control-wrap.checkbox
+            span.wpcf7-form-control.wpcf7-checkbox.checkbox-class
+              span.wpcf7-list-item
+                label
+                  input(type='checkbox')
+                  span.wpcf7-list-item-label i have read <a href="#">terms &amp; conditions</a>
+      input.btn.wpcf7-form-control.wpcf7-submit.submit-class(type='submit', value='submit your request')
+      .wpcf7-response-output.wpcf7-display-none
