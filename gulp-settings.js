@@ -1,22 +1,29 @@
-const devDir = 'dev';
-const publicDir = 'public';
+const devDir = './dev';
+const publicDir = './public';
 
 module.exports = {
+	minifyScripts: false,
 	publicDir,
 	devDir,
-	assetsDir: `${devDir}/assets`,
+	assetsDir: {
+		entry: `${devDir}/assets`,
+		output: publicDir
+	},
+	viewsDir: {
+		entry: `${devDir}/views`,
+		output: publicDir
+	},
 	imagesDir: {
-		entry: `${publicDir}/images`,
+		entry: `${devDir}/assets/images`,
 		output: `${publicDir}/images`
 	},
 	scssDir: {
-		entry: `${devDir}/scss`,
+		entry: `${devDir}/styles`,
 		output: `${publicDir}/css`,
-		mainFileName: 'style',
-		mainFileOutput: publicDir
+		mainFileName: 'style'
 	},
 	pugDir: {
-		entry: devDir,
+		entry: `${devDir}/pug`,
 		output: publicDir
 	},
 	jsDir: {
