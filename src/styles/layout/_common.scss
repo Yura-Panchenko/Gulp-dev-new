@@ -1,0 +1,29 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the common layout of the site
+// -----------------------------------------------------------------------------
+
+body {
+  background-color: $body-bg;
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+// skip links
+.accessibility {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+}

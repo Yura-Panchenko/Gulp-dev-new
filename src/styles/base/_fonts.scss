@@ -1,0 +1,35 @@
+// -----------------------------------------------------------------------------
+// This file contains all @font-face declarations, if any.
+// -----------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------
+//  @Example usage of font-family mixin;
+//
+//  $font-primary: (
+//    'Light': $font-weight-light,
+//    'Regular': $font-weight-normal,
+//  );
+//
+//  $font-secondary: (
+//    'Thin': $font-weight-thin,
+//    'Bold': $font-weight-bold,
+//  );
+//
+//  @param {
+//    $fontName: Filename: string;
+//    $fontWeight: 100|300|400|normal|bold;
+//    $fontStyle: normal/italic/etc;
+//  }
+//
+//  // Filename: Base-Regular.woff
+//  @each $suffix, $weight in $font-primary {
+//    @include fontface('Base', 'Base-#{$suffix}', $weight, normal);
+//  }
+//
+//  @each $suffix, $weight in $font-secondary {
+//    @include fontface('Second Font', '${LocalFontName}-#{$suffix}', $weight, normal);
+//    @include fontface('Second Font', '${LocalFontName}-#{$suffix}Italic', $weight, italic);
+//  }
+// -----------------------------------------------------------------------------
+

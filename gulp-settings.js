@@ -2,7 +2,6 @@ const devDir = './src';
 const publicDir = './dist';
 
 module.exports = {
-	minifyScripts: false,
 	publicDir,
 	devDir,
 	assetsDir: {
@@ -23,7 +22,7 @@ module.exports = {
 		mainFileName: 'style'
 	},
 	pugDir: {
-		entry: `${devDir}/pug`,
+		entry: `${devDir}/views`,
 		output: publicDir
 	},
 	jsDir: {

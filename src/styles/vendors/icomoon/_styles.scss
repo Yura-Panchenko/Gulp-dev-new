@@ -1,0 +1,56 @@
+@import 'variables';
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?#{$icomoon-hash}') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'],
+%icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chevron-down {
+  &::before {
+    content: $icon-chevron-down;
+  }
+}
+
+.icon-cross {
+  &::before {
+    content: $icon-cross;
+  }
+}
+
+.icon-chevron-up {
+  &::before {
+    content: $icon-chevron-up;
+  }
+}
+
+.icon-chevron-left {
+  &::before {
+    content: $icon-chevron-left;
+  }
+}
+
+.icon-chevron-right {
+  &::before {
+    content: $icon-chevron-right;
+  }
+}

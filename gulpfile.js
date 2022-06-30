@@ -12,7 +12,7 @@ const minify = require('gulp-minify');
 const rigger = require('gulp-rigger');
 const plumber = require('gulp-plumber');
 const count = require('gulp-count');
-const cached = require('gulp-cached');
+const cache = require('gulp-cached');
 const autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 
@@ -29,7 +29,7 @@ function server() {
 function pug2html() {
     return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`])
         .pipe(plumber())
-        .pipe(cached('pug2html'))
+        .pipe(cache('pug2html'))
         .pipe(pug({
             pretty: true
         }))
@@ -52,13 +52,12 @@ function pugWatch() {
 function copyScripts() {
     return src(`${settings.jsDir.entry}/**/*.js`)
         .pipe(plumber())
-        .pipe(cached('copyScripts'))
-        .pipe(gulpif(settings.minifyScripts, minify({
+        .pipe(cache('copyScripts'))
+        .pipe(gulpif(!isDevelopment, minify({
             ext: {
                 min: '.min.js'
             },
-            ignoreFiles: ['-min.js', '.min.js'],
-            noSource: true,
+            ignoreFiles: ['*.min.js'],
             preserveComments: true
         })))
         .pipe(plumber.stop())
@@ -69,17 +68,17 @@ function copyScripts() {
 function copyFiles() {
     return src(`${settings.assetsDir.entry}/**/*`)
         .pipe(plumber())
-        .pipe(cached('copyFiles'))
+        .pipe(cache('copyFiles'))
         .pipe(dest(settings.assetsDir.output))
         .pipe(plumber.stop())
         .pipe(browserSync.stream())
-        .pipe(count('## assets copied'));;
+        .pipe(count('## assets copied'));
 }
 
 function copyHtml() {
     return src(`${settings.viewsDir.entry}/*.html`)
         .pipe(plumber())
-        .pipe(cached('copyHtml'))
+        .pipe(cache('copyHtml'))
         .pipe(rigger())
         .pipe(plumber.stop())
         .pipe(dest(settings.viewsDir.output))
@@ -90,7 +89,7 @@ function copyHtml() {
 function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`)
         .pipe(plumber())
-        .pipe(cached('scss'))
+        .pipe(cache('scss'))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
@@ -100,9 +99,6 @@ function scss() {
             format: true,
             format_font_family: false,
             verbose: false
-        }, function(error, result) {
-            if (error)
-                console.log(error);
         }))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
@@ -110,18 +106,19 @@ function scss() {
         .pipe(browserSync.stream());
 }
 
-function purCss() {
+function minCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`)
         .pipe(plumber())
+        .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
         .pipe(purge({
-                trim: true,
-                shorten: true,
-                verbose: false
-            })
-            .pipe(plumber.stop())
-            .pipe(dest(settings.scssDir.output))
-            .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
-            .pipe(dest(settings.scssDir.output)));
+            trim: true,
+            shorten: true,
+            format: true,
+            format_font_family: false,
+            verbose: false
+        }))
+        .pipe(plumber.stop())
+        .pipe(dest(settings.scssDir.output));
 }
 
 function imagesOptimisation() {
@@ -144,17 +141,25 @@ function imagesOptimisation() {
         .pipe(dest(settings.imagesDir.output));
 }
 
-function clean() {
-    return del([`${settings.publicDir}/**`, `!${settings.publicDir}`]);
+function cleanDist(cb) {
+    del([`${settings.publicDir}/**`, `!${settings.publicDir}`]);
+    cb();
 }
 
-function watching() {
+function cleanCache(cb) {
+    cache.caches = {};
+    cb();
+}
+
+function watching(cb) {
     watch(`${settings.scssDir.entry}/**/*.scss`, scss);
     watch(`${settings.jsDir.entry}/**/*.js`, copyScripts);
-    watch(`${settings.viewsDir.entry}/**/*`, copyHtml);
+    watch(`${settings.viewsDir.entry}/**/*.html`, copyHtml);
     watch([`${settings.pugDir.entry}/*.pug`, `${settings.pugDir.entry}/inc/*.pug`], pug2html);
     watch(`${settings.pugDir.entry}/**/_*.pug`, pugWatch);
     watch(`${settings.assetsDir.entry}/**/*`, copyFiles);
+
+    cb();
 }
 
 exports.default = parallel(
@@ -173,30 +178,34 @@ exports.pug = parallel(
     server,
     watching);
 
-exports.dist = series((cb) => {
+exports.dist = series(
+    (cb) => {
         isDevelopment = false;
         cb();
     },
-    clean,
+    cleanCache,
+    cleanDist,
     parallel(
         copyHtml,
         imagesOptimisation,
         copyScripts,
         copyFiles,
-        series(scss, purCss)
+        series(scss, minCss)
     )
 );
 
-exports.distPug = series((cb) => {
+exports.distPug = series(
+    (cb) => {
         isDevelopment = false;
         cb();
     },
-    clean,
+    cleanCache,
+    cleanDist,
     parallel(
         pug2html,
         imagesOptimisation,
         copyScripts,
         copyFiles,
-        series(scss, purCss)
+        series(scss, minCss)
     )
 );

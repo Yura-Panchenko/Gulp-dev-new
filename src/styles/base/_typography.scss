@@ -1,0 +1,75 @@
+
+// -----------------------------------------------------------------------------
+// This file contains typography styles.
+// -----------------------------------------------------------------------------
+
+/*
+  Set up a decent box model on the root element
+*/
+
+html {
+  font-size: $rem-base;
+}
+
+/*
+  Basic typography style for copy text
+*/
+body {
+  color: $body-color;
+  font-family: $font-family-base;
+  font-size: map-get($font-sizes, 'base');
+  line-height: $line-height-base;
+  font-weight: $font-weight-normal;
+}
+
+
+/*
+  Basic styles for links
+*/
+a {
+  @include transition(color);
+  color: $link-color;
+  text-decoration: $link-decoration;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+ul,
+ol,
+dl,
+p {
+  margin: 0 0 $paragraph-margin-bottom;
+}
+
+/*
+  Basic styles for typography, generate classes for sizes provided into sass-map $font-sizes
+  Using fluid type behavior
+*/
+
+// @each $name, $value in $font-sizes {
+//   .text-size-#{$name} {
+//     $max-value: map-get($font-sizes-max, $name);
+
+//     @include fluid-type($value, $max-value);
+//   }
+// }
+
+
+/*
+  Basic styles for headings, generate classes for sizes provided into sass-map $font-sizes
+  Using fluid type behavior
+*/
+
+// @each $name, $value in $headings-sizes {
+//   #{$name},
+//   .#{$name} {
+//     $max-value: map-get($headings-sizes-max, $name);
+
+//     @include fluid-type($value, $max-value);
+//     margin: 0 0 $headings-margin-bottom;
+//     line-height: $headings-line-height;
+//   }
+// }

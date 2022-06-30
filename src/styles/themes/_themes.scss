@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+// When having several themes, this file contains everything related to the
+// default one.
+// -----------------------------------------------------------------------------
+
+/*
+
+  Example of how to make theming (not a rule, just suggestion):
+
+  Create SASS map $site-color-themes;
+
+  $site-color-themes: (
+    'base': $base-theme-color,
+    'success': $success-theme-color,
+    'subscribed': $user-subscribed-theme-color,
+  );
+
+  @param {$name} - name of you theme, {key} of SASS map, e.g. 'base', 'success' etc.
+  @param {$value} - color value of theme, e.g $base-theme-color etc.
+
+  @each $name, $value in $site-color-themes {
+    You can choose where to place class for theme (body. html, etc), depends on project;
+    This can be class, attrribute etc.
+
+    @used on body - @result: body.theme-base...
+    .theme-#{$name} {
+      .header {
+        background-color: $value; // background-color: $base-theme-color...
+      }
+
+      @if you need to rewrite some rules for specific theme, you can use @if statement;
+
+      @if ($name == 'success' or $name == 'subscribed') {
+        .my-custom-element {
+          color: $value; // $value will be color from 'success' or 'subscribed' themes;
+        }
+      }
+
+
+      etc...
+
+      This way, we can just change/add/replace $site-color-themes map variables to control themes.
+    }
+  }
+
+*/
