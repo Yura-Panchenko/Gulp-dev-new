@@ -1,6 +1,7 @@
 const settings = require('./gulp-settings.js');
 const { src, dest, series, parallel, watch, lastRun } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
+const sassImporter = require('node-sass-tilde-importer');
 const sourcemaps = require('gulp-sourcemaps');
 const imagemin = require('gulp-imagemin');
 const pug = require('gulp-pug');
@@ -91,7 +92,9 @@ function scss() {
         .pipe(plumber())
         .pipe(cache('scss'))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            importer: sassImporter
+        }).on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(purge({
             trim: false,

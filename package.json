@@ -11,7 +11,7 @@
     "update": "npm up"
   },
   "author": "",
-  "license": "ISC",
+  "license": "",
   "devDependencies": {
     "browser-sync": "^2.27.10",
     "del": "^6.1.1",
@@ -29,10 +29,15 @@
     "gulp-rigger": "^0.5.8",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
+    "node-sass-tilde-importer": "^1.0.2",
     "sass": "^1.52.2"
   },
   "browserslist": [
     "last 2 version",
     "> 3%"
-  ]
+  ],
+  "dependencies": {
+    "include-media": "^1.4.10",
+    "normalize.css": "^8.0.1"
+  }
 }
