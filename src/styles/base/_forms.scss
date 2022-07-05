@@ -1,25 +1,76 @@
-// stylelint-disable selector-no-qualifying-type, selector-max-compound-selectors
-
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the form elements of the site
-// -----------------------------------------------------------------------------
+// forms
+form,
+fieldset {
+  margin: 0;
+  padding: 0;
+  border-style: none;
+}
 
 input[type='text'],
-input[type='email'],
 input[type='tel'],
+input[type='email'],
+input[type='search'],
+input[type='password'],
+input[type='url'],
+// input[type='date'],
 textarea {
-  @include transition(border-color);
-  border: 1px solid currentColor;
-  background-color: transparent;
-  width: 100%;
-  min-width: 0;
-  padding: 1.2rem 2.4rem;
-  border-radius: 0;
   -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  padding: $input-padding;
+  font-size: $input-font-size;
+  line-height: $input-line-height;
+  font-family: $input-font-family;
+  box-sizing: border-box;
+  border: $input-border;
+  border-radius: $input-border-radius;
 
-  &:focus,
-  &:hover {
-    box-shadow: none;
+  &:not(textarea) {
+    height: $input-height;
+  }
+
+  &:focus {
     outline: none;
+    border-color: $input-focus-border-color;
+  }
+
+  @include placeholder {
+    color: $placeholder-color;
+  }
+}
+
+input[type='search']::-webkit-search-cancel-button {-webkit-appearance: none;}
+
+// input[type="search"] {
+//   -webkit-appearance: textfield;
+// }
+
+textarea {
+  resize: vertical;
+  vertical-align: top;
+  overflow: auto;
+}
+
+button,
+input[type='button'],
+input[type='reset'],
+input[type='file'],
+input[type='submit'] {
+  @include animate(background);
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  height: $submit-height;
+  padding: $submit-padding;
+  font-size: $submit-font-size;
+  line-height: $submit-line-height;
+  color: $submit-color;
+  outline: none;
+  cursor: pointer;
+  border: $submit-border;
+  border-radius: $input-border-radius;
+  background: $submit-background;
+
+  &:hover {
+    background: $submit-hover-background;
+    color: $submit-hover-color;
   }
 }

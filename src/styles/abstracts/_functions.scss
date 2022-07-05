@@ -1,21 +1,52 @@
+/// colors black & white
+/// @example scss - Usage
+///   .my-class {
+///     background: black(0.15);
+///     color: white(0.9);
+///   }
+@function black($opacity) {
+  @return rgba(black, $opacity);
+}
+
+@function white($opacity) {
+  @return rgba(white, $opacity);
+}
+
+@mixin title-size($symbol) {
+
+  @each $media,
+  $titles-size in $title-palette {
+    @if $media ==mobile {
+
+      @each $title,
+      $size in $titles-size {
+
+        #{$title},
+        .#{$title} {
+          font-size: $size + px;
+        }
+      }
+    }
+
+    @else {
+      @include media(#{$symbol}#{$media}) {
+
+        @each $title,
+        $size in $titles-size {
+
+          #{$title},
+          .#{$title} {
+            font-size: $size + px;
+          }
+        }
+      }
+    }
+  }
+}
+
 //
 // @functions
 //
-
-// Color contrast
-@function color-yiq($color, $dark: $yiq-text-dark, $light: $yiq-text-light) {
-  $r: red($color);
-  $g: green($color);
-  $b: blue($color);
-
-  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
-
-  @if ($yiq >= $yiq-contrasted-threshold) {
-    @return $dark;
-  } @else {
-    @return $light;
-  }
-}
 
 // STRIP UNIT
 // It strips the unit of measure and returns it
@@ -24,17 +55,15 @@
 }
 
 // CONVERT TO REM
-// sass-lint:disable zero-unit
 @function convert-to-rem($value, $base-value: $rem-base) {
   $value: strip-unit($value) / strip-unit($base-value) * 1rem;
-  @if ($value == 0) {
-    $value: 0;
-  } // Turn 0rem into 0
-  @return $value;
-}
 
-@function calc-vw($number) {
-  @return ($number * 100vw) / 1920;
+  @if ($value ==0rem) {
+    $value: 0;
+  }
+
+  // Turn 0rem into 0
+  @return $value;
 }
 
 // REM CALC
@@ -59,31 +88,37 @@
 @function rem-calc($values, $base-value: $rem-base) {
   $max: length($values);
 
-  @if $max == 1 {
+  @if $max ==1 {
     @return convert-to-rem(nth($values, 1), $base-value);
   }
 
-  $rem-values: ();
-  @for $i from 1 through $max {
-    $rem-values: append($rem-values, convert-to-rem(nth($values, $i), $base-value));
-  }
-  @return $rem-values;
+  $remValues: (
+  );
+
+@for $i from 1 through $max {
+  $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+}
+
+@return $remValues;
 }
 
 @function em-calc($values, $base-value: $rem-base) {
-  $rem-values: rem-calc($values, $base-value: $rem-base);
+  $remValues: rem-calc($values, $base-value: $rem-base);
 
-  $max: length($rem-values);
+  $max: length($remValues);
 
-  @if $max == 1 {
-    @return strip-unit(nth($rem-values, 1)) * 1em;
+  @if $max ==1 {
+    @return strip-unit(nth($remValues, 1)) * 1em;
   }
 
-  $em-values: ();
-  @for $i from 1 through $max {
-    $em-values: append($em-values, strip-unit(nth($rem-values, $i)) * 1em);
-  }
-  @return $em-values;
+  $emValues: (
+  );
+
+@for $i from 1 through $max {
+  $emValues: append($emValues, strip-unit(nth($remValues, $i)) * 1em);
+}
+
+@return $emValues;
 }
 
 /// colors black & white
@@ -98,4 +133,36 @@
 
 @function white($opacity) {
   @return rgba(white, $opacity);
+}
+
+@mixin title-size($symbol) {
+
+  @each $media,
+  $titles-size in $title-palette {
+    @if $media ==mobile {
+
+      @each $title,
+      $size in $titles-size {
+
+        #{$title},
+        .#{$title} {
+          font-size: $size + px;
+        }
+      }
+    }
+
+    @else {
+      @include media(#{$symbol}#{$media}) {
+
+        @each $title,
+        $size in $titles-size {
+
+          #{$title},
+          .#{$title} {
+            font-size: $size + px;
+          }
+        }
+      }
+    }
+  }
 }

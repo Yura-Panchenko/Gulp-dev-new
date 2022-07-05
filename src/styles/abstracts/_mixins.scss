@@ -1,24 +1,60 @@
-// -----------------------------------------------------------------------------
-// This file contains all application-wide Sass mixins.
-// -----------------------------------------------------------------------------
-
-// --
-//  @param {$fontfamily} - font family name
-//  @param {$filename} - file name in 'fonts' folder (e.g. my-web-font.woff)
-//  @param {$fontweight} - @default: normal;
-//  @param {$fontstyle} - @default: normal;
+// vertical align el inside parent with fixed height/min-height
+// usage
+// html - .parent>.child
+// scss - @include v-align;
+//     or @include v-align(250px);
+//     or @include v-align(250px, bottom, before);
 //
-//  NOTE: used only woff, because in supported in all browsers:
-// --
+@mixin v-align($va-height: 100%, $va-direction: middle, $va-pseudo: after) {
+  white-space: nowrap;
+  text-align: center;
 
-@mixin fontface($fontfamily, $filename, $fontweight: normal, $fontstyle: normal) {
-  @font-face {
-    font-family: $fontfamily;
-    src: url('#{$base-font-path}/#{$filename}.woff') format('woff');
-    font-display: swap;
-    font-weight: $fontweight;
-    font-style: $fontstyle;
+  &:#{$va-pseudo} {
+    content: '';
+    display: inline-block;
+    vertical-align: $va-direction;
+    width: 0;
+    min-height: $va-height;
   }
+
+  >* {
+    white-space: normal;
+    display: inline-block;
+    vertical-align: $va-direction;
+    max-width: 99%;
+  }
+}
+
+// vertical align a pair of child el inside parent
+// usage
+// html - .post>.image+.text
+// scss - @include v-align-pair(image, text);
+//     or @include v-align-pair(image, text, bottom);
+//     or @include v-align-pair(image, text, middle, 200px);
+//
+@mixin v-align-pair($child-name1, $child-name2, $valign: middle, $width1: auto, $width2: auto) {
+  display: table;
+
+  .#{$child-name1} {
+    display: table-cell;
+    vertical-align: $valign;
+    width: $width1;
+  }
+
+  .#{$child-name2} {
+    display: table-cell;
+    vertical-align: $valign;
+    width: $width2;
+  }
+}
+
+// vertical align el
+// usage: @include vertical-align-el;
+//
+@mixin vertical-align-el {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /// Mixin helping defining both `width` and `height` simultaneously.
@@ -59,14 +95,17 @@
 /// @include font-smoothing(on);
 /// @include font-smoothing(off);
 @mixin font-smoothing($value: on) {
-  @if $value == on {
+  @if $value ==on {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  } @else {
+  }
+
+  @else {
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: auto;
   }
 }
+
 
 /// Hides the text in an element, commonly used to show an image. Some elements will need block-level styles applied.
 ///
@@ -90,22 +129,127 @@
   white-space: nowrap;
 }
 
-/// Transition css properties
-// usage
-// scss - @include transition(color);
-//     or @include transition(color, 1s, ease-in);
-//     or @include transition(color width);
-//     or @include transition(color width, 1s, linear);
-//
 
-@mixin transition($properties, $duration: $transition-duration-base, $easing: $transition-easing-base) {
+/// Creates a visual triangle.
+/// Mixin takes ($size, $color, $direction)
+/// The $size argument can take one or two values—width height.
+/// The $color argument can take one or two
+/// values—foreground-color background-color.
+///
+/// @author http://bourbon.io/docs/#triangle
+///
+/// $direction:
+/// up, down, left, right, up-right, up-left, down-right, down-left
+/// @example scss - Usage
+///   @include triangle(12px, gray, down);
+///   @include triangle(12px 6px, gray blue, up-left);
+///
+@mixin triangle($size, $color, $direction) {
+  $width: nth($size, 1);
+  $height: nth($size, length($size));
+  $foreground-color: nth($color, 1);
+  $background-color: if(length($color)==2, nth($color, 2), transparent);
+  height: 0;
+  width: 0;
+
+  @if ($direction ==up) or ($direction ==down) or ($direction ==right) or ($direction ==left) {
+    $width: $width / 2;
+    $height: if(length($size) > 1, $height, $height/2);
+
+    @if $direction ==up {
+      border-bottom: $height solid $foreground-color;
+      border-left: $width solid $background-color;
+      border-right: $width solid $background-color;
+    }
+
+    @else if $direction ==right {
+      border-bottom: $width solid $background-color;
+      border-left: $height solid $foreground-color;
+      border-top: $width solid $background-color;
+    }
+
+    @else if $direction ==down {
+      border-left: $width solid $background-color;
+      border-right: $width solid $background-color;
+      border-top: $height solid $foreground-color;
+    }
+
+    @else if $direction ==left {
+      border-bottom: $width solid $background-color;
+      border-right: $height solid $foreground-color;
+      border-top: $width solid $background-color;
+    }
+  }
+
+  @else if ($direction ==up-right) or ($direction ==up-left) {
+    border-top: $height solid $foreground-color;
+
+    @if $direction ==up-right {
+      border-left: $width solid $background-color;
+    }
+
+    @else if $direction ==up-left {
+      border-right: $width solid $background-color;
+    }
+  }
+
+  @else if ($direction ==down-right) or ($direction ==down-left) {
+    border-bottom: $height solid $foreground-color;
+
+    @if $direction ==down-right {
+      border-left: $width solid $background-color;
+    }
+
+    @else if $direction ==down-left {
+      border-right: $width solid $background-color;
+    }
+  }
+
+  @else if ($direction ==inset-up) {
+    border-color: $background-color $background-color $foreground-color;
+    border-style: solid;
+    border-width: $height $width;
+  }
+
+  @else if ($direction ==inset-down) {
+    border-color: $foreground-color $background-color $background-color;
+    border-style: solid;
+    border-width: $height $width;
+  }
+
+  @else if ($direction ==inset-right) {
+    border-color: $background-color $background-color $background-color $foreground-color;
+    border-style: solid;
+    border-width: $width $height;
+  }
+
+  @else if ($direction ==inset-left) {
+    border-color: $background-color $foreground-color $background-color $background-color;
+    border-style: solid;
+    border-width: $width $height;
+  }
+}
+
+
+/// Animate css properties
+// usage
+// scss - @include animate(color);
+//     or @include animate(color width);
+//     or @include animate(color width, 1s, linear);
+//
+$animation-speed: 0.3s !default;
+
+@mixin animate($properties, $duration: $animation-speed, $easing: ease-in-out) {
   $list: ();
+
   @each $prop in $properties {
     $str: #{$prop} #{$duration} #{$easing};
     $list: join($list, #{$str}, comma);
   }
+
   transition: $list;
 }
+
 
 /// Mixin for styling form-placeholders
 /// @example scss - Usage
@@ -122,7 +266,24 @@
 ///   }
 
 @mixin placeholder {
-  &::placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    opacity: 1;
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &.placeholder {
     @content;
   }
 }
@@ -134,15 +295,84 @@
 /// }
 
 @mixin rem-font-size($px-size) {
-  // sass-lint:disable no-duplicate-properties
+  font-size: $px-size;
   font-size: ($px-size / 10px) + rem;
 }
 
-@function url-friendly-colour($hex-bg-color) {
-  @return '%23' + str-slice('#{$hex-bg-color}', 2, -1);
+//font-face
+@mixin font-face($font-name, $font-path, $weight, $style) {
+  @font-face {
+    font-family: '#{$font-name}';
+    src: url('fonts/#{$font-path}.woff2') format('woff'),
+    url('fonts/#{$font-path}.woff') format('woff');
+    font-weight: $weight;
+    font-style: $style;
+  }
 }
 
-@mixin chevron-right($color) {
-  $bg: str-replace($color, '#', '');
-  background-image: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'%3E %3Cpath fill='#{url-friendly-colour($color)}' d='M240.708 17.489c23.063 22.512 248.395 259.044 248.395 259.044 12.304 12.083 18.484 27.808 18.484 43.533s-6.179 31.449-18.484 43.422c0 0-225.333 236.644-248.395 259.044-23.063 22.512-64.554 24.056-89.107 0-24.607-23.946-26.539-57.436 0-86.845l206.739-215.622-206.739-215.623c-26.539-29.409-24.608-62.954 0-86.955 24.552-24.056 66.044-22.567 89.107 0z'%3E%3C/path%3E %3C/svg%3E");
+// Button sizes
+@mixin button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color) {
+  background: $btn-background;
+  color: $btn-color;
+  border: $btn-border;
+
+  &:hover {
+    background: $btn-hover-background;
+    color: $btn-hover-color;
+    border: $btn-hover-border;
+  }
+}
+
+@mixin add-params() {
+
+  @each $val,
+  $media in $grid {
+    &.df-rr-#{$val} {
+      @include media('≥' + $media) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &.df-aic-#{$val} {
+      @include media('≥' + $media) {
+        align-items: center;
+      }
+    }
+  }
+}
+
+// flex grid
+@mixin flex-grid() {
+
+  @each $val,
+  $media in $grid {
+    @for $gutter from 1 through 12 {
+      .col-#{$val}-#{$gutter} {
+        @include media('≥' + $media) {
+          flex: 1 0 calc(100% / 12 * #{$gutter});
+          max-width: calc(100% / 12 * #{$gutter});
+        }
+      }
+    }
+
+    @for $gutter from 0 through 11 {
+      .col-offset-#{$val}-#{$gutter} {
+        @include media('≥' + $media) {
+          margin-left: calc(100% / 12 * #{$gutter});
+        }
+      }
+    }
+  }
+}
+
+@mixin v-center($min-height: 400px) {
+  display: flex;
+
+  >* {
+    min-height: $min-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
 }

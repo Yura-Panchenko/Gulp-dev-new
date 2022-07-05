@@ -1,26 +1,150 @@
-
-// -----------------------------------------------------------------------------
-// This file contains very basic styles.
-// -----------------------------------------------------------------------------
-
-/**
- * Set up a decent box model on the root element
- */
-
 html {
   box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
 }
-
-
-/**
- * Make all elements from the DOM inherit from the parent box-sizing
- * Since `*` has a specificity of 0, it does not override the `html` value
- * making all elements inheriting from the root box-sizing value
- * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
- */
 
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+* {
+  max-height: 1000000px;
+}
+
+//- HTML5 display-role reset for older browsers
+main,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ul,
+ol,
+dl,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+address,
+form,
+table,
+blockquote,
+applet,
+embed,
+object,
+iframe,
+frameset {
+  margin: 0 0 $vertical-rhythm;
+}
+
+blockquote {
+  border-left: 4px solid $gray;
+  padding-left: 10px;
+  margin-left: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid $gray;
+  padding: 3px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+dl {
+  @extend %clearfix;
+
+  dt {
+    float: left;
+    clear: left;
+    padding-right: 0.3em;
+    font-weight: bold;
+  }
+
+  dd {
+    overflow: hidden;
+  }
+}
+
+pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+body {
+  color: $base-text-color;
+  background: $base-background-body;
+  font: #{$font-size-base}/#{$line-height-base} $base-font-family;
+  min-width: $base-min-width;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+
+  @include media('≥tablet') {
+    font-size: $font-size-base-lagre;
+    line-height: $line-height-base-lagre;
+  }
+}
+
+// adaptive images
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+  display: inline-block;
+}
+
+// google map fix
+.gm-style img {
+  max-width: none;
+}
+
+iframe {
+  @include media('<desktop') {
+    width: 100%;
+  }
+}
+
+.resize-active * {
+  transition: none !important;
 }

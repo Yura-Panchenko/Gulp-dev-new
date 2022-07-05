@@ -37,7 +37,6 @@
     "> 3%"
   ],
   "dependencies": {
-    "include-media": "^1.4.10",
-    "normalize.css": "^8.0.1"
+    "include-media": "^1.4.10"
   }
 }

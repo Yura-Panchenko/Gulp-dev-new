@@ -1,34 +1,85 @@
-/**
- * Hide text while making it readable for screen readers
- * 1. Needed in WebKit-based browsers because of an implementation bug;
- *    See: https://code.google.com/p/chromium/issues/detail?id=457146
- */
-.hide-text {
-  overflow: hidden;
-  padding: 0; /* 1 */
-  text-indent: 101%;
-  white-space: nowrap;
+// list reset
+%listreset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-/**
- * Hide element while making it readable for screen readers
- * Shamelessly borrowed from HTML5Boilerplate:
- * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
- */
-.visually-hidden {
-  &:not(:focus):not(:active) {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
+
+// clearfix
+%clearfix {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
   }
 }
-input[type="checkbox"],
-input[type="radio"] {
-  @extend .visually-hidden;
+
+.clearfix {
+  @extend %clearfix;
+}
+
+// transition
+%transition {
+  transition: all 0.3s ease-in-out;
+}
+
+// justify nav
+%justify {
+  text-align: justify;
+  font-size: 1px;
+  line-height: 0;
+
+  >* {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+%bgCover {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+%absoluteCover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/// * Helper class to truncate and add ellipsis to a string too long for it to fit
+/// * on a single line.
+/// * 1. Prevent content from wrapping, forcing it on a single line.
+/// * 2. Add ellipsis at the end of the line.
+
+.ellipsis {
+  white-space: nowrap;
+  /* 1 */
+  text-overflow: ellipsis;
+  /* 2 */
+  overflow: hidden;
+}
+
+.df-row {
+  @include add-params();
+  @include flex-grid();
+
+  display: flex;
+  flex-wrap: wrap;
+
+  @include media('≥tablet') {
+    margin: 0 (-$gutter);
+  }
 }

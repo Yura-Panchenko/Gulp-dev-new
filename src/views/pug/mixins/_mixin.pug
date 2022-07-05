@@ -46,6 +46,18 @@ mixin retinaPng(obj)
 		source(srcset='images/large-'+obj.imgName+'.png, images/large-'+obj.imgName+'-2x.png 2x, images/large-'+obj.imgName+'-3x.png 3x')
 		img(src='images/large-'+obj.imgName+'.png', alt= obj.alt || "image description")
 
+//- +imgPng({
+//- 	image: ''
+//- })
+mixin imgPng(obj)
+	img(src="./images/"+obj.image+".png" srcset="./images/"+obj.image+"-2x.png 2x" alt="image description")
+
+//- +imgJpg({
+//- 	image: ''
+//- })
+mixin imgJpg(obj)
+	img(src="./images/"+obj.image+".jpg" srcset="./images/"+obj.image+"-2x.jpg 2x" alt="image description")
+
 //-
 	-for (var i = 0; i <= 20; i++)
 		tr
@@ -121,3 +133,81 @@ mixin card(obj)
 			if (obj.link)
 			.btn-wrap
 				a.btn.btn-default(href="#")= obj.link
+
+//- +rowImageText({
+//- 	reverse: true,
+//- 	image: 'image-01.jpg',
+//- 	title: 'Offset Sheet-Fed Press',
+//- 	text: 'Over the past 40 years, we’ve mastered the tried and true method of offset sheet-fed press, also known as lithography. This traditional printing process uses flexible metal plates, which are then passed through a commercial printer to create an image impression. The final result is a high-quality print with superior registration, detail and quality.',
+//- 	textLeft: 'Up to 28" x 40"',
+//- 	textRight: 'Up to 300dpi'
+//- })
+mixin rowImageText(obj)
+	.row-image-text(class=obj.reverse ? 'row-image-text--reverse': '')
+		.row-image-text__col
+			.row-image-text__visual: img(src="images/"+obj.image, alt="image")
+		.row-image-text__col
+			.row-image-text__content
+				h5!=obj.title
+				p!=obj.text
+				-if(obj.textRight || obj.textLeft)
+					.two-columns
+						-if( obj.textLeft)
+							.two-columns__col
+								h6 Available Sizes:
+								p!=obj.textLeft
+						-if(obj.textRight)
+							.two-columns__col
+								h6 Resolution:
+								p!=obj.textRight
+
+
+//- +sectionScroll({
+//- 	title: 'TRUSTED PARTNERS <br>IN PRINT & PACKAGING',
+//- 	text: 'As your printing partner, you can rest assured that we’ll go above and beyond to deliver high-value assets for your business.',
+//- 	anchors: [
+//- 		{
+//- 			image: 'side1.jpg',
+//- 			title: 'UNWAVERING CUSTOMER SERVICE',
+//- 			description: 'Get hands-on support from design to delivery.',
+//- 			link: 'MEET THE TEAM'
+//- 		},{
+//- 			image: 'side2.jpg',
+//- 			title: 'OUTSTANDING PRODUCTION QUALITY',
+//- 			description: 'Create high-quality experiences for your customers.',
+//- 			link: 'MEET THE TEAM'
+//- 		},{
+//- 			image: 'side3.jpg',
+//- 			title: 'VALUE-ADDED PRINT',
+//- 			description: 'Discover exciting new ways to visualize your brand.',
+//- 			link: 'MEET THE TEAM'
+//- 		}
+//- 	]
+//- })
+mixin sectionScroll(obj)
+	section.section-scroll 
+		.container.container-p-left
+			.side-nav-block
+				.side-nav-box
+					.sticky-wrap
+						.section-text
+							-if(obj.title)
+								h2!=obj.title
+							-if(obj.text)
+								.section-text__hold
+									p!=obj.text
+						ul.side-nav
+							each el,i in obj.anchors
+								li: a.anchor.anchor-active(href="#id"+(i+1))!=el.title
+						-if(obj.button)
+							a.btn.btn-without-border.btn-underlined(href="#")!=obj.button
+				.side-blocks
+					each el,i in obj.anchors
+						.block(id="id"+(i+1))
+							.img-box 
+								img(src="images/"+el.image, alt="image")
+							h3!=el.title
+							p!=el.description
+							-if(el.link)
+								.block-link-wrap
+									a.btn.btn-without-border.btn-underlined(href="#")!=el.link

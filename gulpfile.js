@@ -93,11 +93,13 @@ function scss() {
         .pipe(cache('scss'))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
         .pipe(sass({
-            importer: sassImporter
+            importer: sassImporter,
+            includePaths: require("node-normalize-scss").includePaths
         }).on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(purge({
             trim: false,
+            trim_whitespace: true,
             shorten: true,
             format: true,
             format_font_family: false,
@@ -173,13 +175,15 @@ exports.default = parallel(
     server,
     watching);
 
-exports.pug = parallel(
-    pug2html,
-    copyFiles,
-    copyScripts,
-    scss,
-    server,
-    watching);
+exports.pug =
+    parallel(
+        pug2html,
+        copyFiles,
+        copyScripts,
+        scss,
+        server,
+        watching
+    );
 
 exports.dist = series(
     (cb) => {

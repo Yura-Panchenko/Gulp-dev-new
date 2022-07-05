@@ -1,4 +1,41 @@
-
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
+.btn {
+    @include button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color);
+    border: $btn-border;
+    border-radius: $btn-border-radius;
+    display: inline-block;
+    font-size: $btn-font-size;
+    line-height: $btn-line-height;
+    padding: $btn-padding;
+    vertical-align: top;
+    text-align: center;
+
+    &-default {
+        @include button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color);
+    }
+
+    &-primary {
+        @include button-color($btn-background-primary, $btn-color-primary, $btn-border-primary, $btn-hover-background-primary, $btn-hover-border-primary, $btn-hover-color-primary);
+    }
+
+    &-warning {
+        @include button-color($btn-background-warning, $btn-color-warning, $btn-border-warning, $btn-hover-background-warning, $btn-hover-border-warning, $btn-hover-color-warning);
+    }
+
+    &-sm {
+        border-radius: $btn-border-radius-sm;
+        padding: 4px 10px;
+    }
+}
+
+.btn-group {
+    margin: 0 -5px -10px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn {
+        margin: 0 5px 10px;
+    }
+}

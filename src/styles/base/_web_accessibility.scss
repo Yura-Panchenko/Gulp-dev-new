@@ -1,0 +1,38 @@
+noscript {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #000;
+    background: #ff8f8f;
+    display: block;
+    padding: 5px 0;
+    text-align: center;
+    z-index: 99999;
+}
+
+.accessibility {
+    position: absolute;
+    left: -200vw;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+
+    &:focus {
+        position: static;
+        width: auto;
+        height: auto;
+    }
+}
+
+.hidden {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
