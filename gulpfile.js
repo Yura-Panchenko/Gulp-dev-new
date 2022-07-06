@@ -19,29 +19,20 @@ var browserSync = require('browser-sync').create();
 
 let isDevelopment = true;
 
-function server() {
+function server(cb) {
     browserSync.init({
+        watch: true,
         server: {
             baseDir: settings.publicDir
         }
     });
+    cb()
 }
 
 function pug2html() {
     return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`])
         .pipe(plumber())
         .pipe(cache('pug2html'))
-        .pipe(pug({
-            pretty: true
-        }))
-        .pipe(plumber.stop())
-        .pipe(dest(settings.publicDir))
-        .pipe(browserSync.stream());
-}
-
-function pugWatch() {
-    return src(`${settings.pugDir.entry}/*.pug`)
-        .pipe(plumber())
         .pipe(pug({
             pretty: true
         }))
@@ -67,7 +58,11 @@ function copyScripts() {
 }
 
 function copyFiles() {
-    return src(`${settings.assetsDir.entry}/**/*`)
+    let entry = [`${settings.assetsDir.entry}/**/*`];
+    if (!isDevelopment) {
+        entry.push(`!${settings.assetsDir.entry}/images/**/*`);
+    }
+    return src(entry)
         .pipe(plumber())
         .pipe(cache('copyFiles'))
         .pipe(dest(settings.assetsDir.output))
@@ -77,7 +72,7 @@ function copyFiles() {
 }
 
 function copyHtml() {
-    return src(`${settings.viewsDir.entry}/*.html`)
+    return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`])
         .pipe(plumber())
         .pipe(cache('copyHtml'))
         .pipe(rigger())
@@ -87,14 +82,24 @@ function copyHtml() {
         .pipe(count('## html copied'));
 }
 
+function copyHtmlInc() {
+    return src(`${settings.viewsDir.entry}/inc/*.html`)
+        .pipe(plumber())
+        .pipe(cache('copyHtmlInc'))
+        .pipe(rigger())
+        .pipe(plumber.stop())
+        .pipe(dest(`${settings.viewsDir.output}/inc`))
+        .pipe(browserSync.stream())
+        .pipe(count('## inc html copied'));
+}
+
 function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`)
         .pipe(plumber())
         .pipe(cache('scss'))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
         .pipe(sass({
-            importer: sassImporter,
-            includePaths: require("node-normalize-scss").includePaths
+            importer: sassImporter
         }).on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(purge({
@@ -108,7 +113,7 @@ function scss() {
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
         .pipe(dest(settings.scssDir.output))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.stream({ match: `${settings.scssDir.output}/**/*.css` }));
 }
 
 function minCss() {
@@ -147,8 +152,9 @@ function imagesOptimisation() {
 }
 
 function cleanDist(cb) {
-    del([`${settings.publicDir}/**`, `!${settings.publicDir}`]);
-    cb();
+    del([`${settings.publicDir}/**`, `!${settings.publicDir}`]).then(paths => {
+        cb();
+    });
 }
 
 function cleanCache(cb) {
@@ -157,33 +163,45 @@ function cleanCache(cb) {
 }
 
 function watching(cb) {
-    watch(`${settings.scssDir.entry}/**/*.scss`, scss);
-    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts);
-    watch(`${settings.viewsDir.entry}/**/*.html`, copyHtml);
-    watch([`${settings.pugDir.entry}/*.pug`, `${settings.pugDir.entry}/inc/*.pug`], pug2html);
-    watch(`${settings.pugDir.entry}/**/_*.pug`, pugWatch);
-    watch(`${settings.assetsDir.entry}/**/*`, copyFiles);
-
+    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('change', function (filePath) {
+        delete cache.caches['scss'];
+    });
+    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('change', function (filePath) {
+        delete cache.caches['copyScripts'];
+    });
+    watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function (filePath) {
+        delete cache.caches['copyHtml'];
+    });
+    watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function (filePath) {
+        delete cache.caches['copyHtmlInc'];
+    });
+    watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function (filePath) {
+        delete cache.caches['pug2html'];
+    });
+    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('change', function (filePath) {
+        delete cache.caches['copyFiles'];
+    });
     cb();
 }
 
 exports.default = parallel(
     copyHtml,
-    copyFiles,
+    series(
+        copyFiles,
+        copyHtmlInc,
+    ),
     copyScripts,
     scss,
     server,
     watching);
 
-exports.pug =
-    parallel(
-        pug2html,
-        copyFiles,
-        copyScripts,
-        scss,
-        server,
-        watching
-    );
+exports.pug = parallel(
+    pug2html,
+    copyFiles,
+    copyScripts,
+    scss,
+    server,
+    watching);
 
 exports.dist = series(
     (cb) => {
@@ -194,10 +212,16 @@ exports.dist = series(
     cleanDist,
     parallel(
         copyHtml,
-        imagesOptimisation,
         copyScripts,
-        copyFiles,
-        series(scss, minCss)
+        series(
+            copyFiles,
+            copyHtmlInc,
+        ),
+        series(
+            scss,
+            minCss
+        ),
+        imagesOptimisation,
     )
 );
 
@@ -210,9 +234,9 @@ exports.distPug = series(
     cleanDist,
     parallel(
         pug2html,
-        imagesOptimisation,
         copyScripts,
         copyFiles,
-        series(scss, minCss)
+        series(scss, minCss),
+        imagesOptimisation,
     )
 );
