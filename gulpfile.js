@@ -7,7 +7,7 @@ const imagemin = require('gulp-imagemin');
 const pug = require('gulp-pug');
 const del = require('del');
 const gulpif = require('gulp-if');
-const purge = require('gulp-css-purge');
+const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const minify = require('gulp-minify');
 const rigger = require('gulp-rigger');
@@ -102,13 +102,24 @@ function scss() {
             importer: sassImporter
         }).on('error', sass.logError))
         .pipe(autoprefixer())
-        .pipe(purge({
-            trim: false,
-            trim_whitespace: true,
-            shorten: true,
-            format: true,
-            format_font_family: false,
-            verbose: false
+        .pipe(cleanCSS({
+            format: 'beautify',
+            inline: ['local', 'remote', '!fonts.googleapis.com'],
+            sourceMap: true,
+            level: {
+                1: {
+                  all: true,
+                  removeQuotes: false, // controls removing quotes when unnecessary; defaults to `true`
+                  roundingPrecision: false, // rounds pixel values to `N` decimal places; `false` disables rounding; defaults to `false`
+                  selectorsSortingMethod: 'standard', // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
+                  specialComments: 'all', // denotes a number of /*! ... */ comments preserved; defaults to `all`
+                  tidySelectors: false, // controls selectors optimizing; defaults to `true`,
+                },
+                2: {
+                    all: true,
+                    mergeMedia: false
+                }
+              }
         }))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
@@ -120,12 +131,22 @@ function minCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`)
         .pipe(plumber())
         .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
-        .pipe(purge({
-            trim: true,
-            shorten: true,
-            format: true,
-            format_font_family: false,
-            verbose: false
+        .pipe(cleanCSS({
+            inline: ['local', 'remote', '!fonts.googleapis.com'],
+            level: {
+                1: {
+                  all: true,
+                  removeQuotes: false, // controls removing quotes when unnecessary; defaults to `true`
+                  roundingPrecision: false, // rounds pixel values to `N` decimal places; `false` disables rounding; defaults to `false`
+                  selectorsSortingMethod: 'standard', // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
+                  specialComments: false, // denotes a number of /*! ... */ comments preserved; defaults to `all`
+                  tidySelectors: false, // controls selectors optimizing; defaults to `true`,
+                },
+                2: {
+                    all: true,
+                    mergeMedia: false
+                }
+              }
         }))
         .pipe(plumber.stop())
         .pipe(dest(settings.scssDir.output));
