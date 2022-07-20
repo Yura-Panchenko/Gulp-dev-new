@@ -72,7 +72,7 @@ function copyFiles() {
 }
 
 function copyHtml() {
-    return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`])
+    return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`])
         .pipe(plumber())
         .pipe(cache('copyHtml'))
         .pipe(rigger())
