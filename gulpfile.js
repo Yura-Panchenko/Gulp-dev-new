@@ -18,6 +18,7 @@ const autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 
 let isDevelopment = true;
+// https://www.npmjs.com/package/clean-css#level-1-optimizations
 let cleanCssLevelOpts = {
     1: {
         all: true,
