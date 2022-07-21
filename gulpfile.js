@@ -18,6 +18,30 @@ const autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 
 let isDevelopment = true;
+let cleanCssLevelOpts = {
+    1: {
+        all: true,
+        normalizeUrls: false,
+        optimizeBackground: false,
+        removeQuotes: false,
+        roundingPrecision: false,
+        optimizeFont: false,
+        optimizeFontWeight: false,
+        selectorsSortingMethod: 'standard', // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
+        specialComments: 'all', // denotes a number of /*! ... */ comments preserved; defaults to `all`
+        tidySelectors: false,
+        tidyAtRules: true,
+        tidyBlockScopes: true
+    },
+    2: {
+        all: false,
+        mergeAdjacentRules: true,
+        removeEmpty: true,
+        overrideProperties: true,
+        removeDuplicateMediaBlocks: true,
+        removeDuplicateRules: true,
+    }
+};
 
 function server(cb) {
     browserSync.init({
@@ -106,20 +130,7 @@ function scss() {
             format: 'beautify',
             inline: ['local', 'remote', '!fonts.googleapis.com'],
             sourceMap: true,
-            level: {
-                1: {
-                  all: true,
-                  removeQuotes: false, // controls removing quotes when unnecessary; defaults to `true`
-                  roundingPrecision: false, // rounds pixel values to `N` decimal places; `false` disables rounding; defaults to `false`
-                  selectorsSortingMethod: 'standard', // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
-                  specialComments: 'all', // denotes a number of /*! ... */ comments preserved; defaults to `all`
-                  tidySelectors: false, // controls selectors optimizing; defaults to `true`,
-                },
-                2: {
-                    all: true,
-                    mergeMedia: false
-                }
-              }
+            level: cleanCssLevelOpts
         }))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
@@ -133,20 +144,7 @@ function minCss() {
         .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
         .pipe(cleanCSS({
             inline: ['local', 'remote', '!fonts.googleapis.com'],
-            level: {
-                1: {
-                  all: true,
-                  removeQuotes: false, // controls removing quotes when unnecessary; defaults to `true`
-                  roundingPrecision: false, // rounds pixel values to `N` decimal places; `false` disables rounding; defaults to `false`
-                  selectorsSortingMethod: 'standard', // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
-                  specialComments: false, // denotes a number of /*! ... */ comments preserved; defaults to `all`
-                  tidySelectors: false, // controls selectors optimizing; defaults to `true`,
-                },
-                2: {
-                    all: true,
-                    mergeMedia: false
-                }
-              }
+            level: cleanCssLevelOpts
         }))
         .pipe(plumber.stop())
         .pipe(dest(settings.scssDir.output));
