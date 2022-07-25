@@ -15,7 +15,7 @@ const plumber = require('gulp-plumber');
 const count = require('gulp-count');
 const cache = require('gulp-cached');
 const autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
+const browserSync = require('browser-sync').create();
 
 let isDevelopment = true;
 // https://www.npmjs.com/package/clean-css#level-1-optimizations
@@ -55,7 +55,7 @@ function server(cb) {
 }
 
 function pug2html() {
-    return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`])
+    return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`], {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('pug2html'))
         .pipe(pug({
@@ -67,7 +67,7 @@ function pug2html() {
 }
 
 function copyScripts() {
-    return src(`${settings.jsDir.entry}/**/*.js`)
+    return src(`${settings.jsDir.entry}/**/*.js`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('copyScripts'))
         .pipe(gulpif(!isDevelopment, minify({
@@ -87,7 +87,7 @@ function copyFiles() {
     if (!isDevelopment) {
         entry.push(`!${settings.assetsDir.entry}/images/**/*`);
     }
-    return src(entry)
+    return src(entry, {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('copyFiles'))
         .pipe(dest(settings.assetsDir.output))
@@ -97,7 +97,7 @@ function copyFiles() {
 }
 
 function copyHtml() {
-    return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`])
+    return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`], {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('copyHtml'))
         .pipe(rigger())
@@ -108,7 +108,7 @@ function copyHtml() {
 }
 
 function copyHtmlInc() {
-    return src(`${settings.viewsDir.entry}/inc/*.html`)
+    return src(`${settings.viewsDir.entry}/inc/*.html`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('copyHtmlInc'))
         .pipe(rigger())
@@ -119,7 +119,7 @@ function copyHtmlInc() {
 }
 
 function scss() {
-    return src(`${settings.scssDir.entry}/**/*.scss`)
+    return src(`${settings.scssDir.entry}/**/*.scss`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('scss'))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
@@ -140,7 +140,7 @@ function scss() {
 }
 
 function minCss() {
-    return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`)
+    return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
         .pipe(cleanCSS({
@@ -152,7 +152,7 @@ function minCss() {
 }
 
 function imagesOptimisation() {
-    return src(`${settings.imagesDir.entry}/**/*`)
+    return src(`${settings.imagesDir.entry}/**/*`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(imagemin([
             imagemin.gifsicle({ interlaced: true }),
