@@ -192,7 +192,7 @@ function cleanDist(cb) {
 
 function cleanCache(cb) {
     cache.caches = {};
-    cb();
+    cb(); 
 }
 
 function watching(cb) {
