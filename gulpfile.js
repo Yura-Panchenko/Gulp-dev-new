@@ -138,7 +138,7 @@ function scss() {
         }))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
-        .pipe(dest(settings.scssDir.output))
+        .pipe(dest( settings.isWP ? settings.scssDir.wpOutput : settings.scssDir.output))
         .pipe(count('## files sass to css compiled', { logFiles: true }))
         .pipe(browserSync.stream({ match: `${settings.scssDir.output}/**/*.css` }));
 }
@@ -163,13 +163,6 @@ function wpCss() {
         .pipe(dest(settings.wpDir))
         .pipe(count('## wp css copied'));
 }
-
-gulp.task('wpstyle', (cb) => {
-    return gulp.src(path.resolve(__dirname, settings.scssDir.mainFileOutput + '/style.css'))
-        .pipe(plugins.cached('wpstyle'))
-        .pipe(gulp.dest(path.resolve(__dirname, settings.wpDir)))
-        .pipe(plugins.count('## assets files copied', { logFiles: true }));
-});
 
 function imagesOptimisation() {
     return src(`${settings.imagesDir.entry}/**/*`, {allowEmpty: true})
@@ -259,7 +252,8 @@ exports.dist = series(
         ),
         series(
             scss,
-            minCss
+            minCss, 
+            (settings.isWP ? wpCss : () => {})
         ),
         imagesOptimisation,
     )
@@ -276,7 +270,11 @@ exports.distPug = series(
         pug2html,
         copyScripts,
         copyFiles,
-        series(scss, minCss),
+        series(
+            scss,
+            minCss, 
+            (settings.isWP ? wpCss : () => {})
+        ),
         imagesOptimisation,
     )
 );

@@ -6,6 +6,7 @@ module.exports = {
 	publicDir,
 	devDir,
 	wpDir,
+	isWP: false,
 	assetsDir: {
 		entry: `${devDir}/assets`,
 		output: publicDir
@@ -21,6 +22,7 @@ module.exports = {
 	scssDir: {
 		entry: `${devDir}/styles`,
 		output: `${publicDir}/css`,
+		wpOutput: `${publicDir}`,
 		mainFileName: 'style'
 	},
 	pugDir: {
