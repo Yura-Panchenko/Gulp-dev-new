@@ -48,7 +48,10 @@ function server(cb) {
     browserSync.init({
         watch: true,
         server: {
-            baseDir: settings.publicDir
+            baseDir: settings.publicDir,
+            port: 3010,
+            directory: true,
+            notify: false
         }
     });
     cb()
@@ -136,6 +139,7 @@ function scss() {
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
         .pipe(dest(settings.scssDir.output))
+        .pipe(count('## files sass to css compiled', { logFiles: true }))
         .pipe(browserSync.stream({ match: `${settings.scssDir.output}/**/*.css` }));
 }
 
@@ -148,8 +152,24 @@ function minCss() {
             level: cleanCssLevelOpts
         }))
         .pipe(plumber.stop())
-        .pipe(dest(settings.scssDir.output));
+        .pipe(dest(settings.scssDir.output))
+        .pipe(count('## min css copied'));
 }
+
+function wpCss() {
+    return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, {allowEmpty: true})
+        .pipe(plumber())
+        .pipe(plumber.stop())
+        .pipe(dest(settings.wpDir))
+        .pipe(count('## wp css copied'));
+}
+
+gulp.task('wpstyle', (cb) => {
+    return gulp.src(path.resolve(__dirname, settings.scssDir.mainFileOutput + '/style.css'))
+        .pipe(plugins.cached('wpstyle'))
+        .pipe(gulp.dest(path.resolve(__dirname, settings.wpDir)))
+        .pipe(plugins.count('## assets files copied', { logFiles: true }));
+});
 
 function imagesOptimisation() {
     return src(`${settings.imagesDir.entry}/**/*`, {allowEmpty: true})

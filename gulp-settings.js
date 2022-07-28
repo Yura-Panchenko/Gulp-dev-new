@@ -1,9 +1,11 @@
 const devDir = './src';
 const publicDir = './dist';
+const wpDir = './wp-content/themes/theme_name_folder'; //path to theme root folder
 
 module.exports = {
 	publicDir,
 	devDir,
+	wpDir,
 	assetsDir: {
 		entry: `${devDir}/assets`,
 		output: publicDir
