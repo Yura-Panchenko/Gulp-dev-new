@@ -16,6 +16,7 @@ const count = require('gulp-count');
 const cache = require('gulp-cached');
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
+const { findAPortNotInUse } = require('portscanner');
 
 let isDevelopment = true;
 // https://www.npmjs.com/package/clean-css#level-1-optimizations
@@ -49,9 +50,9 @@ function server(cb) {
         watch: true,
         server: {
             baseDir: settings.publicDir,
-            port: 3010,
             directory: true,
-            notify: false
+            notify: false,
+            port: findAPortNotInUse(3000)
         }
     });
     cb()
@@ -83,6 +84,14 @@ function copyScripts() {
         .pipe(plumber.stop())
         .pipe(dest(settings.jsDir.output))
         .pipe(browserSync.stream());
+}
+
+function wpCopyScripts() {
+    return src(`${settings.jsDir.output}/**/*.js`, {allowEmpty: true})
+        .pipe(plumber())
+        .pipe(plumber.stop())
+        .pipe(dest(`${settings.wpDir}/js`))
+        .pipe(count('## wp js copied'));
 }
 
 function copyFiles() {
@@ -246,6 +255,7 @@ exports.dist = series(
     parallel(
         copyHtml,
         copyScripts,
+        (settings.isWP ? wpCopyScripts : (cb) => {cb();}),
         series(
             copyFiles,
             copyHtmlInc,
@@ -253,7 +263,7 @@ exports.dist = series(
         series(
             scss,
             minCss, 
-            (settings.isWP ? wpCss : () => {})
+            (settings.isWP ? wpCss : (cb) => {cb();})
         ),
         imagesOptimisation,
     )
@@ -270,10 +280,11 @@ exports.distPug = series(
         pug2html,
         copyScripts,
         copyFiles,
+        (settings.isWP ? wpCopyScripts : (cb) => {cb();}),
         series(
             scss,
             minCss, 
-            (settings.isWP ? wpCss : () => {})
+            (settings.isWP ? wpCss : (cb) => {cb();})
         ),
         imagesOptimisation,
     )
