@@ -216,10 +216,10 @@ function watching(cb) {
         delete cache.caches['copyScripts'];
     });
     watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function (filePath) {
+        delete cache.caches['copyHtml'];
     });
     watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function (filePath) {
         delete cache.caches['copyHtmlInc'];
-        delete cache.caches['copyHtml'];
     });
     watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function (filePath) {
         delete cache.caches['pug2html'];
