@@ -16,7 +16,8 @@ const count = require('gulp-count');
 const cache = require('gulp-cached');
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
-const { findAPortNotInUse } = require('portscanner');
+const sassMultiInheritance = require('gulp-sass-multi-inheritance');
+
 
 let isDevelopment = true;
 // https://www.npmjs.com/package/clean-css#level-1-optimizations
@@ -52,7 +53,7 @@ function server(cb) {
             baseDir: settings.publicDir,
             directory: true,
             notify: false,
-            port: findAPortNotInUse(3000)
+            port: 3010
         }
     });
     cb()
@@ -134,6 +135,7 @@ function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`, {allowEmpty: true})
         .pipe(plumber())
         .pipe(cache('scss'))
+        .pipe(sassMultiInheritance({ dir: `${settings.scssDir.entry}/` }))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
         .pipe(sass({
             importer: sassImporter
@@ -205,22 +207,22 @@ function cleanCache(cb) {
 }
 
 function watching(cb) {
-    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('change', function (filePath) {
-        delete cache.caches['scss'];
+    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
+        delete cache.caches.scss[path.resolve(filePath)];
     });
-    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('change', function (filePath) {
+    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function (filePath) {
         delete cache.caches['copyScripts'];
     });
     watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function (filePath) {
-        delete cache.caches['copyHtml'];
     });
     watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function (filePath) {
         delete cache.caches['copyHtmlInc'];
+        delete cache.caches['copyHtml'];
     });
     watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function (filePath) {
         delete cache.caches['pug2html'];
     });
-    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('change', function (filePath) {
+    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function (filePath) {
         delete cache.caches['copyFiles'];
     });
     cb();
