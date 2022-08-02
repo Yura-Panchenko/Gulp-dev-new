@@ -1,4 +1,5 @@
 const settings = require('./gulp-settings.js');
+const path = require('path');
 const { src, dest, series, parallel, watch, lastRun } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const sassImporter = require('node-sass-tilde-importer');
@@ -223,7 +224,7 @@ function watching(cb) {
         delete cache.caches['pug2html'];
     });
     watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function (filePath) {
-        delete cache.caches['copyFiles'];
+        delete cache.caches.copyFiles[path.resolve(filePath)];
     });
     cb();
 }
