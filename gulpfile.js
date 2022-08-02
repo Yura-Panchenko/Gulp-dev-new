@@ -35,7 +35,8 @@ let cleanCssLevelOpts = {
         specialComments: 'all', // denotes a number of /*! ... */ comments preserved; defaults to `all`
         tidySelectors: false,
         tidyAtRules: true,
-        tidyBlockScopes: true
+        tidyBlockScopes: true,
+        semicolonAfterLastProperty: true
     },
     2: {
         all: false,
