@@ -63,8 +63,11 @@ function server(cb) {
 
 function pug2html() {
     return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`], {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('pug2html'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(pug({
             pretty: true
         }))
@@ -75,8 +78,11 @@ function pug2html() {
 
 function copyScripts() {
     return src(`${settings.jsDir.entry}/**/*.js`, {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('copyScripts'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(gulpif(!isDevelopment, minify({
             ext: {
                 min: '.min.js'
@@ -91,7 +97,10 @@ function copyScripts() {
 
 function wpCopyScripts() {
     return src(`${settings.jsDir.output}/**/*.js`, {allowEmpty: true})
-        .pipe(plumber())
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(plumber.stop())
         .pipe(dest(`${settings.wpDir}/js`))
         .pipe(count('## wp js copied'));
@@ -103,8 +112,11 @@ function copyFiles() {
         entry.push(`!${settings.assetsDir.entry}/images/**/*`);
     }
     return src(entry, {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('copyFiles'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(dest(settings.assetsDir.output))
         .pipe(plumber.stop())
         .pipe(browserSync.stream())
@@ -113,8 +125,11 @@ function copyFiles() {
 
 function copyHtml() {
     return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`], {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('copyHtml'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(rigger())
         .pipe(plumber.stop())
         .pipe(dest(settings.viewsDir.output))
@@ -124,8 +139,11 @@ function copyHtml() {
 
 function copyHtmlInc() {
     return src(`${settings.viewsDir.entry}/inc/*.html`, {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('copyHtmlInc'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(rigger())
         .pipe(plumber.stop())
         .pipe(dest(`${settings.viewsDir.output}/inc`))
@@ -135,8 +153,11 @@ function copyHtmlInc() {
 
 function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`, {allowEmpty: true})
-        .pipe(plumber())
         .pipe(cache('scss'))
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(sassMultiInheritance({ dir: `${settings.scssDir.entry}/` }))
         .pipe(gulpif(isDevelopment, sourcemaps.init()))
         .pipe(sass({
@@ -158,7 +179,10 @@ function scss() {
 
 function minCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, {allowEmpty: true})
-        .pipe(plumber())
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
         .pipe(cleanCSS({
             inline: ['local', 'remote', '!fonts.googleapis.com'],
@@ -171,15 +195,16 @@ function minCss() {
 
 function wpCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, {allowEmpty: true})
-        .pipe(plumber())
-        .pipe(plumber.stop())
         .pipe(dest(settings.wpDir))
         .pipe(count('## wp css copied'));
 }
 
 function imagesOptimisation() {
     return src(`${settings.imagesDir.entry}/**/*`, {allowEmpty: true})
-        .pipe(plumber())
+        .pipe(plumber(function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }))
         .pipe(imagemin([
             imagemin.gifsicle({ interlaced: true }),
             imagemin.mozjpeg({ quality: 85, progressive: true }),
