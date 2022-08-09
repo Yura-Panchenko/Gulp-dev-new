@@ -65,7 +65,7 @@ function pug2html() {
     return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`], {allowEmpty: true})
         .pipe(cache('pug2html'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(pug({
@@ -80,7 +80,7 @@ function copyScripts() {
     return src(`${settings.jsDir.entry}/**/*.js`, {allowEmpty: true})
         .pipe(cache('copyScripts'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(gulpif(!isDevelopment, minify({
@@ -98,7 +98,7 @@ function copyScripts() {
 function wpCopyScripts() {
     return src(`${settings.jsDir.output}/**/*.js`, {allowEmpty: true})
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(plumber.stop())
@@ -114,7 +114,7 @@ function copyFiles() {
     return src(entry, {allowEmpty: true})
         .pipe(cache('copyFiles'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(dest(settings.assetsDir.output))
@@ -127,7 +127,7 @@ function copyHtml() {
     return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`], {allowEmpty: true})
         .pipe(cache('copyHtml'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(rigger())
@@ -141,7 +141,7 @@ function copyHtmlInc() {
     return src(`${settings.viewsDir.entry}/inc/*.html`, {allowEmpty: true})
         .pipe(cache('copyHtmlInc'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(rigger())
@@ -155,7 +155,7 @@ function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`, {allowEmpty: true})
         .pipe(cache('scss'))
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(sassMultiInheritance({ dir: `${settings.scssDir.entry}/` }))
@@ -180,7 +180,7 @@ function scss() {
 function minCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, {allowEmpty: true})
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(rename(`${settings.scssDir.mainFileName}.min.css`))
@@ -202,7 +202,7 @@ function wpCss() {
 function imagesOptimisation() {
     return src(`${settings.imagesDir.entry}/**/*`, {allowEmpty: true})
         .pipe(plumber(function (error) {
-            console.log(error.message);
+            console.error(error.message);
             this.emit('end');
         }))
         .pipe(imagemin([
