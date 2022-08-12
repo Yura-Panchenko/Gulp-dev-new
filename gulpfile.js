@@ -235,7 +235,7 @@ function cleanCache(cb) {
 
 function watching(cb) {
     watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
-        delete cache.caches.scss[path.resolve(filePath)];
+        delete cache.caches['scss'];
     });
     watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function (filePath) {
         delete cache.caches['copyScripts'];
@@ -250,7 +250,7 @@ function watching(cb) {
         delete cache.caches['pug2html'];
     });
     watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function (filePath) {
-        delete cache.caches.copyFiles[path.resolve(filePath)];
+        delete cache.caches['copyFiles'];
     });
     cb();
 }
