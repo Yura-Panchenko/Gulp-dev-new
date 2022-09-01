@@ -237,7 +237,7 @@ function watching(cb) {
     watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
         delete cache.caches['scss'];
     });
-   if (wpCss) {
+   if (settings.isWP) {
         watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function(filePath) {
             delete cache.caches['wpCss'];
         });
