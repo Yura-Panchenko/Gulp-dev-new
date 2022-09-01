@@ -237,9 +237,11 @@ function watching(cb) {
     watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
         delete cache.caches['scss'];
     });
-    watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function(filePath) {
-        delete cache.caches['wpCss'];
-    });
+   if (wpCss) {
+        watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function(filePath) {
+            delete cache.caches['wpCss'];
+        });
+    }
     watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function(filePath) {
         delete cache.caches['copyScripts'];
     });
