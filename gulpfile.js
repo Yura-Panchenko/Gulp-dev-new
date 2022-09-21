@@ -64,7 +64,7 @@ function server(cb) {
 function pug2html() {
     return src([`${settings.pugDir.entry}/**/*.pug`, `!${settings.pugDir.entry}/**/_*.pug`], { allowEmpty: true })
         .pipe(cache('pug2html'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -79,7 +79,7 @@ function pug2html() {
 function copyScripts() {
     return src(`${settings.jsDir.entry}/**/*.js`, { allowEmpty: true })
         .pipe(cache('copyScripts'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -97,7 +97,7 @@ function copyScripts() {
 
 function wpCopyScripts() {
     return src(`${settings.jsDir.output}/**/*.js`, { allowEmpty: true })
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -113,7 +113,7 @@ function copyFiles() {
     }
     return src(entry, { allowEmpty: true })
         .pipe(cache('copyFiles'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -126,7 +126,7 @@ function copyFiles() {
 function copyHtml() {
     return src([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`, `!${settings.viewsDir.entry}/includes/*.html`], { allowEmpty: true })
         .pipe(cache('copyHtml'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -140,7 +140,7 @@ function copyHtml() {
 function copyHtmlInc() {
     return src(`${settings.viewsDir.entry}/inc/*.html`, { allowEmpty: true })
         .pipe(cache('copyHtmlInc'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -154,7 +154,7 @@ function copyHtmlInc() {
 function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`, { allowEmpty: true })
         .pipe(cache('scss'))
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -179,7 +179,7 @@ function scss() {
 
 function minCss() {
     return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, { allowEmpty: true })
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -201,7 +201,7 @@ function wpCss() {
 
 function imagesOptimisation() {
     return src(`${settings.imagesDir.entry}/**/*`, { allowEmpty: true })
-        .pipe(plumber(function(error) {
+        .pipe(plumber(function (error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -234,27 +234,27 @@ function cleanCache(cb) {
 }
 
 function watching(cb) {
-    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
+    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function (filePath) {
         delete cache.caches['scss'];
     });
-   if (settings.isWP) {
-        watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function(filePath) {
+    if (settings.isWP) {
+        watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function (filePath) {
             delete cache.caches['wpCss'];
         });
     }
-    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function(filePath) {
+    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function (filePath) {
         delete cache.caches['copyScripts'];
     });
-    watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function(filePath) {
+    watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function (filePath) {
         delete cache.caches['copyHtml'];
     });
-    watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function(filePath) {
+    watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function (filePath) {
         delete cache.caches['copyHtmlInc'];
     });
-    watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function(filePath) {
+    watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function (filePath) {
         delete cache.caches['pug2html'];
     });
-    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function(filePath) {
+    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function (filePath) {
         delete cache.caches['copyFiles'];
     });
     cb();
