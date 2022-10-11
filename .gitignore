@@ -3,5 +3,5 @@ public
 dist
 input
 package-lock.json
-README.md
-./images
+#README.md
+img
