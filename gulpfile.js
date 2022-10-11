@@ -260,73 +260,75 @@ function watching(cb) {
     cb();
 }
 
-exports.default = parallel(
-    copyHtml,
-    series(
+if (settings.isPug) {
+    exports.default = parallel(
+        pug2html,
         copyFiles,
-        copyHtmlInc,
-    ),
-    copyScripts,
-    series(
-        scss,
-        (settings.isWP ? wpCss : (cb) => { cb(); })
-    ),
-
-    server,
-    watching);
-
-exports.pug = parallel(
-    pug2html,
-    copyFiles,
-    copyScripts,
-    series(
-        scss,
-        (settings.isWP ? wpCss : (cb) => { cb(); })
-    ),
-    server,
-    watching);
-
-exports.dist = series(
-    (cb) => {
-        isDevelopment = false;
-        cb();
-    },
-    cleanCache,
-    cleanDist,
-    parallel(
-        copyHtml,
         copyScripts,
-        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
+        series(
+            scss,
+            (settings.isWP ? wpCss : (cb) => { cb(); })
+        ),
+        server,
+        watching);
+
+    exports.dist = series(
+        (cb) => {
+            isDevelopment = false;
+            cb();
+        },
+        cleanCache,
+        cleanDist,
+        parallel(
+            pug2html,
+            copyScripts,
+            copyFiles,
+            (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
+            series(
+                scss,
+                minCss,
+                (settings.isWP ? wpCss : (cb) => { cb(); })
+            ),
+            imagesOptimisation,
+        )
+    );
+} else {
+    console.log('HTML');
+    exports.default = parallel(
+        copyHtml,
         series(
             copyFiles,
             copyHtmlInc,
         ),
-        series(
-            scss,
-            minCss,
-            (settings.isWP ? wpCss : (cb) => { cb(); })
-        ),
-        imagesOptimisation,
-    )
-);
-
-exports.distPug = series(
-    (cb) => {
-        isDevelopment = false;
-        cb();
-    },
-    cleanCache,
-    cleanDist,
-    parallel(
-        pug2html,
         copyScripts,
-        copyFiles,
-        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
         series(
             scss,
-            minCss,
             (settings.isWP ? wpCss : (cb) => { cb(); })
         ),
-        imagesOptimisation,
-    )
-);
+        server,
+        watching);
+
+    exports.dist = series(
+        (cb) => {
+            isDevelopment = false;
+            cb();
+        },
+        cleanCache,
+        cleanDist,
+        parallel(
+            copyHtml,
+            copyScripts,
+            (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
+            series(
+                copyFiles,
+                copyHtmlInc,
+            ),
+            series(
+                scss,
+                minCss,
+                (settings.isWP ? wpCss : (cb) => { cb(); })
+            ),
+            imagesOptimisation,
+        )
+    );
+}

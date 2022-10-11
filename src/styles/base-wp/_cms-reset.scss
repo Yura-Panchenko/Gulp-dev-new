@@ -1,0 +1,81 @@
+ul,
+ol,
+dl,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+address,
+form,
+table,
+blockquote,
+applet,
+embed,
+object,
+iframe,
+frameset {
+    margin: 0 0 $vertical-rhythm;
+}
+
+blockquote {
+    border-left: 4px solid $gray;
+    padding-left: 10px;
+    margin-left: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid $gray;
+    padding: 3px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+ul,
+ol {
+    padding-left: 20px;
+}
+
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+dl {
+    @extend %clearfix;
+
+    dt {
+        float: left;
+        clear: left;
+        padding-right: 0.3em;
+        font-weight: bold;
+    }
+
+    dd {
+        overflow: hidden;
+    }
+}
+
+pre {
+    max-width: 100%;
+    overflow: auto;
+}

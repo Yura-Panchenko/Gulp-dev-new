@@ -37,9 +37,14 @@ $media-expressions: (
 @import 'base/forms';
 // @import 'base/web_accessibility';
 
+// base WP
+@import 'base-wp/cms-reset';
+@import 'base-wp/wp-reset';
+
 // 4. Layout-related sections
 @import 'layout/header';
 @import 'layout/common';
+@import 'layout/footer';
 @import 'layout/footer';
 
 // 5. Components

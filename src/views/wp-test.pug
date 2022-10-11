@@ -1,0 +1,266 @@
+include pug/common/_head
+	block content
+		include pug/common/_header
+		main#main
+			.container
+				#twocolumns
+					#content
+						h1 Header one
+						h2 Header two
+						h3 Header three
+						h4 Header four
+						h5 Header five
+						h6 Header six
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p
+							img.alignleft(src='http://placehold.it/100x100', alt='image description')
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p
+							img.alignright(src='http://placehold.it/100x100', alt='image description')
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p
+							img.aligncenter(src='http://placehold.it/350x250', alt='image description')
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						.wp-caption.aligncenter(style='width: 350px;')
+							img(src='http://placehold.it/350x150', alt='image description')
+							p Sapiente, minus, provident, possimus
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						p
+							iframe(width='560', height='315', src='http://www.youtube.com/embed/nwe-H6l4beM?wmode=transparent', frameborder='0', allowfullscreen='')
+						p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, minus, provident, possimus, aperiam ipsum fugit eos natus est ducimus quasi in libero repudiandae et mollitia perspiciatis adipisci ex. Perferendis, odit!
+						// Blockquotes
+						p Single line blockquote:
+						blockquote Stay hungry. Stay foolish.
+						p Multi line blockquote with a cite reference:
+						blockquote
+							p People think focus means saying yes to the thing you've got to focus on. But that's not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I'm actually as proud of the things we haven't done as the things I have done. Innovation is saying no to 1,000 things.
+							cite Steve Jobs - Apple Worldwide Developers' Conference, 1997
+						// Tables
+						table
+							tbody
+								tr
+									th Employee
+									th.views Salary
+									th
+								tr.odd
+									td
+										a(href='http://example.com/') Jane
+									td $1
+									td Because that's all Steve Job' needed for a salary.
+								tr.even
+									td
+										a(href='http://example.com/') John
+									td $100K
+									td For all the blogging he does.
+								tr.odd
+									td
+										a(href='http://example.com/') Jane
+									td $100M
+									td Pictures are worth a thousand words, right? So Tom x 1,000.
+								tr.even
+									td
+										a(href='http://example.com/') Jane
+									td $100B
+									td With hair like that?! Enough said...
+						// Definition Lists
+						dl
+							dt Definition List Title:
+							dd Definition list division.
+							dt Startup:
+							dd A startup company or startup is a company or temporary organization designed to search for a repeatable and scalable business model.
+							dt #dowork:
+							dd Coined by Rob Dyrdek and his personal body guard Christopher "Big Black" Boykins, "Do Work" works as a self motivator, to motivating your friends.
+							dt Do It Live:
+							dd
+								| I'll let Bill O'Reilly will
+								a(title="We'll Do It Live", href='https://www.youtube.com/watch?v=O_HyZ5aW76c') explain
+								|  this one.
+						// Unordered Lists (Nested)
+						ul
+							li List item one
+								ul
+									li List item one
+										ul
+											li List item one
+											li List item two
+											li List item three
+											li List item four
+									li List item two
+									li List item three
+									li List item four
+							li List item two
+							li List item three
+							li List item four
+						// Ordered List (Nested)
+						ol
+							li List item one
+								ol
+									li List item one
+										ol
+											li List item one
+											li List item two
+											li List item three
+											li List item four
+									li List item two
+									li List item three
+									li List item four
+							li List item two
+							li List item three
+							li List item four
+						// Ordered-Unordered-Ordered List
+						ol
+							li ordered item
+							li ordered item
+								ul
+									li
+										strong unordered
+									li
+										strong unordered
+										ol
+											li ordered item
+											li ordered item
+							li ordered item
+							li ordered item
+						// Ordered-Unordered-Unordered List
+						ol
+							li ordered item
+							li ordered item
+								ul
+									li
+										strong unordered
+									li
+										strong unordered
+										ul
+											li unordered item
+											li unordered item
+							li ordered item
+							li ordered item
+						// Unordered-Ordered-Unordered List
+						ul
+							li unordered item
+							li unordered item
+								ol
+									li ordered
+									li ordered
+										ul
+											li unordered item
+											li unordered item
+							li unordered item
+							li unordered item
+						// Unordered-Unordered-Ordered List
+						ul
+							li unordered item
+							li unordered item
+								ul
+									li unordered
+									li unordered
+										ol
+											li
+												strong ordered item
+											li
+												strong ordered item
+							li unordered item
+							li unordered item
+						// HTML Tags
+						strong Address Tag
+						p
+							address 1 Infinite Loop Cupertino, CA 95014 United States
+							|  example text
+						strong Anchor Tag (aka. Link)
+						p
+							| This is an example of a
+							a(title='Apple', href='http://apple.com/') link
+							| .
+						strong Cite Tag
+						p
+							| "Code is poetry." --
+							cite Automattic
+						strong Code Tag
+						p
+							| You will learn later on in these tests that
+							code word-wrap: break-word;
+							|  will be your best friend.
+						strong Delete Tag
+						p
+							| This tag will let you
+							del strikeout text
+							| , but this tag is no longer supported in HTML5 (use the &lt;strike&gt; instead).
+						strong Emphasize Tag
+						p
+							| The emphasize tag should
+							em italicize
+							|  text.
+						strong Keyboard Tag
+						p
+							| This scarcely known tag emulates
+							kbd  keyboard text
+							| , which is usually styled like the &lt;code&gt; tag.
+						strong Preformatted Tag
+						p This tag styles large blocks of code.
+						pre.
+							.post-title {
+								tmargin: 0 0 5px;
+								tfont-weight: bold;
+								tfont-size: 38px;
+								tline-height: 1.2;
+							}
+						strong Quote Tag
+						p
+							q Developers, developers, developers...
+							|  --Steve Ballmer
+						strong Strong Tag
+						p
+							| This tag shows
+							strong
+								| bold
+								strong  text.
+						strong Subscript Tag
+						p
+							| Getting our science styling on with H
+							sub 2
+							| O, which should push the "2" down.
+						strong Superscript Tag
+						p
+							| Still sticking with science and Isaac Newton's E = MC
+							sup 2
+							| , which should lift the 2 up.
+						// pagination
+						nav.navigation.pagination(role='navigation')
+							h2.screen-reader-text Posts navigation
+							.nav-links
+								a.prev.page-numbers(href='#') Previous page
+								a.page-numbers(href='#') 1
+								span.page-numbers.current 2
+								span.page-numbers.dots …
+								a.page-numbers(href='#') 3
+								a.page-numbers(href='#') 4
+								a.next.page-numbers(href='#') Next page
+						.navigation-single
+							.prev
+								a(href='#') Previous page
+							.next
+								a(href='#') Next page
+						.navigation-comments
+							a.prev.page-numbers(href='#') « Previous
+							a.page-numbers(href='#') 1
+							span.page-numbers.current 2
+							a.page-numbers(href='#') 3
+							a.page-numbers(href='#') 4
+							a.next.page-numbers(href='#') Next »
+						// Search Form
+						form#searchform.search-form(action='#', method='get', role='search')
+							input#s(name='s', type='search', placeholder='')
+							input#searchsubmit(value='Search', type='submit')
+						// Password Form
+						form.post-password-form(method='post', action='#')
+							p This content is password protected. To view it please enter your password below:
+							p
+								label(for='pwbox-1168') Password:
+								input#pwbox-1168(type='password', size='20', name='post_password')
+								input(type='submit', value='Submit', name='Submit')
+						include pug/template/_comments-wp
+					aside#sidebar
+						include pug/template/_widgets
+		include pug/common/_footer
