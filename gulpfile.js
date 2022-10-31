@@ -173,6 +173,7 @@ function scss() {
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
         .pipe(dest(settings.isWP ? settings.scssDir.wpOutput : settings.scssDir.output))
+        .pipe(gulpif(settings.isWP, dest(settings.wpDir)))
         .pipe(count('## files sass to css compiled', { logFiles: true }))
         .pipe(browserSync.stream({ match: `${settings.scssDir.output}/**/*.css` }));
 }
@@ -191,12 +192,6 @@ function minCss() {
         .pipe(plumber.stop())
         .pipe(dest(settings.scssDir.output))
         .pipe(count('## min css copied'));
-}
-
-function wpCss() {
-    return src(`${settings.scssDir.output}/${settings.scssDir.mainFileName}.css`, { allowEmpty: true })
-        .pipe(dest(settings.wpDir))
-        .pipe(count('## wp css copied'));
 }
 
 function imagesOptimisation() {
@@ -237,11 +232,6 @@ function watching(cb) {
     watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function (filePath) {
         delete cache.caches['scss'];
     });
-    if (settings.isWP) {
-        watch(`${settings.scssDir.entry}/**/*.scss`, wpCss).on('change', function (filePath) {
-            delete cache.caches['wpCss'];
-        });
-    }
     watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function (filePath) {
         delete cache.caches['copyScripts'];
     });
@@ -265,9 +255,9 @@ if (settings.isPug) {
         pug2html,
         copyFiles,
         copyScripts,
+        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
         series(
             scss,
-            (settings.isWP ? wpCss : (cb) => { cb(); })
         ),
         server,
         watching);
@@ -287,7 +277,6 @@ if (settings.isPug) {
             series(
                 scss,
                 minCss,
-                (settings.isWP ? wpCss : (cb) => { cb(); })
             ),
             imagesOptimisation,
         )
@@ -301,9 +290,9 @@ if (settings.isPug) {
             copyHtmlInc,
         ),
         copyScripts,
+        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
         series(
             scss,
-            (settings.isWP ? wpCss : (cb) => { cb(); })
         ),
         server,
         watching);
@@ -326,7 +315,6 @@ if (settings.isPug) {
             series(
                 scss,
                 minCss,
-                (settings.isWP ? wpCss : (cb) => { cb(); })
             ),
             imagesOptimisation,
         )
