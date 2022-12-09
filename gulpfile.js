@@ -154,7 +154,7 @@ function copyHtmlInc() {
 function scss() {
     return src(`${settings.scssDir.entry}/**/*.scss`, { allowEmpty: true })
         .pipe(cache('scss'))
-        .pipe(plumber(function (error) {
+        .pipe(plumber(function(error) {
             console.error(error.message);
             this.emit('end');
         }))
@@ -164,12 +164,12 @@ function scss() {
             importer: sassImporter
         }).on('error', sass.logError))
         .pipe(autoprefixer())
-        .pipe(cleanCSS({
+        .pipe(gulpif(!isDevelopment, cleanCSS({
             format: 'beautify',
             inline: ['local', 'remote', '!fonts.googleapis.com'],
-            sourceMap: true,
+            sourceMap: false,
             level: cleanCssLevelOpts
-        }))
+        })))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
         .pipe(dest(settings.isWP ? settings.scssDir.wpOutput : settings.scssDir.output))
@@ -229,22 +229,25 @@ function cleanCache(cb) {
 }
 
 function watching(cb) {
-    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function (filePath) {
+    watch(`${settings.scssDir.entry}/**/*.scss`, scss).on('unlink', function(filePath) {
         delete cache.caches['scss'];
     });
-    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function (filePath) {
+    watch(`${settings.jsDir.entry}/**/*.js`, copyScripts).on('unlink', function(filePath) {
         delete cache.caches['copyScripts'];
     });
-    watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function (filePath) {
+    watch([`${settings.viewsDir.entry}/**/*.html`, `!${settings.viewsDir.entry}/inc/*.html`], copyHtml).on('change', function(filePath) {
         delete cache.caches['copyHtml'];
     });
-    watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function (filePath) {
+    watch(`${settings.viewsDir.entry}/inc/*.html`, copyHtmlInc).on('change', function(filePath) {
         delete cache.caches['copyHtmlInc'];
     });
-    watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('change', function (filePath) {
+    watch(`${settings.pugDir.entry}/**/_*.pug`, pug2html).on('change', function(filePath) {
         delete cache.caches['pug2html'];
     });
-    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function (filePath) {
+    watch(`${settings.pugDir.entry}/**/*.pug`, pug2html).on('unlink', function(filePath) {
+        delete cache.caches['pug2html'];
+    });
+    watch(`${settings.assetsDir.entry}/**/*`, copyFiles).on('unlink', function(filePath) {
         delete cache.caches['copyFiles'];
     });
     cb();
@@ -252,13 +255,23 @@ function watching(cb) {
 
 if (settings.isPug) {
     exports.default = parallel(
+        scss,
         pug2html,
         copyFiles,
         copyScripts,
         (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
-        series(
-            scss,
-        ),
+        server,
+        watching);
+
+    exports.build = parallel(
+        (cb) => {
+            isDevelopment = false;
+        },
+        scss,
+        pug2html,
+        copyFiles,
+        copyScripts,
+        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
         server,
         watching);
 
@@ -270,20 +283,18 @@ if (settings.isPug) {
         cleanCache,
         cleanDist,
         parallel(
+            scss,
             pug2html,
             copyScripts,
             copyFiles,
             (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
-            series(
-                scss,
-                minCss,
-            ),
             imagesOptimisation,
         )
     );
 } else {
     console.log('HTML');
     exports.default = parallel(
+        scss,
         copyHtml,
         series(
             copyFiles,
@@ -291,9 +302,21 @@ if (settings.isPug) {
         ),
         copyScripts,
         (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
+        server,
+        watching);
+
+    exports.build = parallel(
+        (cb) => {
+            isDevelopment = false;
+        },
+        scss,
+        copyHtml,
         series(
-            scss,
+            copyFiles,
+            copyHtmlInc,
         ),
+        copyScripts,
+        (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
         server,
         watching);
 
@@ -305,16 +328,13 @@ if (settings.isPug) {
         cleanCache,
         cleanDist,
         parallel(
+            scss,
             copyHtml,
             copyScripts,
             (settings.isWP ? wpCopyScripts : (cb) => { cb(); }),
             series(
                 copyFiles,
                 copyHtmlInc,
-            ),
-            series(
-                scss,
-                minCss,
             ),
             imagesOptimisation,
         )
