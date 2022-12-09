@@ -1,3 +1,5 @@
+// @import 'base-wp/head-wp';
+
 // devices viewport width starts at:
 $breakpoints: (
     xs-phone: 320px,
@@ -36,6 +38,10 @@ $media-expressions: (
 @import 'base/typography';
 @import 'base/forms';
 // @import 'base/web_accessibility';
+
+// base WP
+// @import 'base-wp/cms-reset';
+// @import 'base-wp/wp-reset';
 
 // 4. Layout-related sections
 @import 'layout/header';
