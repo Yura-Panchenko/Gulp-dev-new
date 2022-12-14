@@ -140,50 +140,49 @@
     &:before,
     &:after,
     span {
-        @include animate(transform);
+        @include animate(transform opacity);
         background: $black;
         position: absolute;
-        top: 16px;
+        top: 50%;
         left: 15%;
         right: 15%;
         height: 3px;
-        margin-top: -2px;
+        transform: translateY(-50%);
     }
 
     &:before,
     &:after {
         content: '';
-        top: 10px;
+    }
+
+    &:before {
+        transform: translateY(-9px);
     }
 
     &:after {
-        top: 22px;
+        transform: translateY(6px);
     }
 
     &:hover {
-        opacity: 0.9;
+        &:before,
+        &:after,
+        span {
+            background-color: gray;
+        }
     }
 
     .nav-active & {
         span {
             opacity: 0;
+            transform: rotate(45deg);
         }
 
-        &:after,
         &:before {
-            transform: rotate(45deg);
-            top: 16px;
-            left: 15%;
-            right: 15%;
+            transform: rotate(45deg) translateY(0);
         }
 
         &:after {
-            transform: rotate(-45deg);
+            transform: rotate(-45deg) translateY(0);
         }
     }
-}
-
-.resize-active .nav-drop,
-.resize-active .nav-drop>ul {
-    transition: none !important;
 }
