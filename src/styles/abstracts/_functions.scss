@@ -134,35 +134,3 @@
 @function white($opacity) {
   @return rgba(white, $opacity);
 }
-
-@mixin title-size($symbol) {
-
-  @each $media,
-  $titles-size in $title-palette {
-    @if $media ==mobile {
-
-      @each $title,
-      $size in $titles-size {
-
-        #{$title},
-        .#{$title} {
-          font-size: $size + px;
-        }
-      }
-    }
-
-    @else {
-      @include media(#{$symbol}#{$media}) {
-
-        @each $title,
-        $size in $titles-size {
-
-          #{$title},
-          .#{$title} {
-            font-size: $size + px;
-          }
-        }
-      }
-    }
-  }
-}
