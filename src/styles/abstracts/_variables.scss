@@ -111,6 +111,13 @@ $max-width-center-container: 1200px;
 $gutter: 15px;
 $padding-container: 0 $gutter;
 
+$unit-intervals: (
+  'px': 0.02,
+  'em': 0.01,
+  'rem': 0.1,
+  '': 0
+) !default;
+
 // grid sistem
 $grid: (
   ph: 'phone',
