@@ -154,7 +154,7 @@ function scss() {
         .pipe(sass({
             importer: sassImporter
         }).on('error', sass.logError))
-        .pipe(autoprefixer())
+        .pipe(gulpif(!isDevelopment,autoprefixer()))
         .pipe(gulpif(!isDevelopment, cleanCSS({
             format: 'beautify',
             inline: ['local', 'remote', '!fonts.googleapis.com'],
@@ -163,7 +163,7 @@ function scss() {
         })))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
-        .pipe(dest(settings.isWP ? settings.scssDir.wpOutput : settings.scssDir.output))
+        .pipe(dest(settings.scssDir.output))
         .pipe(gulpif(settings.isWP, dest(settings.wpDir)))
         .pipe(count('## files sass to css compiled', { logFiles: true }))
         .pipe(browserSync.stream({ match: `${settings.scssDir.output}/**/*.css` }));

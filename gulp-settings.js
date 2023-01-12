@@ -23,7 +23,6 @@ module.exports = {
 	scssDir: {
 		entry: `${devDir}/styles`,
 		output: `${publicDir}/css`,
-		wpOutput: `${publicDir}`,
 		mainFileName: 'style'
 	},
 	pugDir: {
