@@ -1,62 +1,62 @@
 // list reset
 %listreset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 // clearfix
 %clearfix {
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 }
 
 .clearfix {
-  @extend %clearfix;
+    @extend %clearfix;
 }
 
 // transition
 %transition {
-  transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 // justify nav
 %justify {
-  text-align: justify;
-  font-size: 1px;
-  line-height: 0;
+    text-align: justify;
+    font-size: 1px;
+    line-height: 0;
 
-  >* {
-    display: inline-block;
-    vertical-align: top;
-    text-align: left;
-    font-size: $font-size-base;
-    line-height: $line-height-base;
-  }
+    >* {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;
+        font-size: $font-size-base;
+        line-height: $line-height-base;
+    }
 
-  &:after {
-    content: '';
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-  }
+    &:after {
+        content: '';
+        width: 100%;
+        display: inline-block;
+        vertical-align: top;
+    }
 }
 
 %bgCover {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 %absoluteCover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 /// * Helper class to truncate and add ellipsis to a string too long for it to fit
@@ -65,21 +65,21 @@
 /// * 2. Add ellipsis at the end of the line.
 
 .ellipsis {
-  white-space: nowrap;
-  /* 1 */
-  text-overflow: ellipsis;
-  /* 2 */
-  overflow: hidden;
+    white-space: nowrap;
+    /* 1 */
+    text-overflow: ellipsis;
+    /* 2 */
+    overflow: hidden;
 }
 
 .df-row {
-  @include add-params();
-  @include flex-grid();
+    @include add-params();
+    @include flex-grid();
 
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 
-  @include media('≥tablet') {
-    margin: 0 (-$gutter);
-  }
+    @include media('≥tablet') {
+        margin: 0 (-$gutter);
+    }
 }

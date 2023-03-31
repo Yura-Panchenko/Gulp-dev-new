@@ -6,23 +6,23 @@
 //     or @include v-align(250px, bottom, before);
 //
 @mixin v-align($va-height: 100%, $va-direction: middle, $va-pseudo: after) {
-  white-space: nowrap;
-  text-align: center;
+    white-space: nowrap;
+    text-align: center;
 
-  &:#{$va-pseudo} {
-    content: '';
-    display: inline-block;
-    vertical-align: $va-direction;
-    width: 0;
-    min-height: $va-height;
-  }
+    &:#{$va-pseudo} {
+        content: '';
+        display: inline-block;
+        vertical-align: $va-direction;
+        width: 0;
+        min-height: $va-height;
+    }
 
-  >* {
-    white-space: normal;
-    display: inline-block;
-    vertical-align: $va-direction;
-    max-width: 99%;
-  }
+    >* {
+        white-space: normal;
+        display: inline-block;
+        vertical-align: $va-direction;
+        max-width: 99%;
+    }
 }
 
 // vertical align a pair of child el inside parent
@@ -33,28 +33,28 @@
 //     or @include v-align-pair(image, text, middle, 200px);
 //
 @mixin v-align-pair($child-name1, $child-name2, $valign: middle, $width1: auto, $width2: auto) {
-  display: table;
+    display: table;
 
-  .#{$child-name1} {
-    display: table-cell;
-    vertical-align: $valign;
-    width: $width1;
-  }
+    .#{$child-name1} {
+        display: table-cell;
+        vertical-align: $valign;
+        width: $width1;
+    }
 
-  .#{$child-name2} {
-    display: table-cell;
-    vertical-align: $valign;
-    width: $width2;
-  }
+    .#{$child-name2} {
+        display: table-cell;
+        vertical-align: $valign;
+        width: $width2;
+    }
 }
 
 // vertical align el
 // usage: @include vertical-align-el;
 //
 @mixin vertical-align-el {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /// Mixin helping defining both `width` and `height` simultaneously.
@@ -87,23 +87,23 @@
 ///   }
 ///
 @mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
+    width: $width;
+    height: $height;
 }
 
 /// font-smothing
 /// @include font-smoothing(on);
 /// @include font-smoothing(off);
 @mixin font-smoothing($value: on) {
-  @if $value ==on {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    @if $value ==on {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-  @else {
-    -webkit-font-smoothing: subpixel-antialiased;
-    -moz-osx-font-smoothing: auto;
-  }
+    @else {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+    }
 }
 
 
@@ -124,9 +124,9 @@
 ///   }
 ///
 @mixin hide-text {
-  overflow: hidden;
-  text-indent: 101%;
-  white-space: nowrap;
+    overflow: hidden;
+    text-indent: 101%;
+    white-space: nowrap;
 }
 
 
@@ -145,89 +145,89 @@
 ///   @include triangle(12px 6px, gray blue, up-left);
 ///
 @mixin triangle($size, $color, $direction) {
-  $width: nth($size, 1);
-  $height: nth($size, length($size));
-  $foreground-color: nth($color, 1);
-  $background-color: if(length($color)==2, nth($color, 2), transparent);
-  height: 0;
-  width: 0;
+    $width: nth($size, 1);
+    $height: nth($size, length($size));
+    $foreground-color: nth($color, 1);
+    $background-color: if(length($color)==2, nth($color, 2), transparent);
+    height: 0;
+    width: 0;
 
-  @if ($direction ==up) or ($direction ==down) or ($direction ==right) or ($direction ==left) {
-    $width: $width / 2;
-    $height: if(length($size) > 1, $height, $height/2);
+    @if ($direction ==up) or ($direction ==down) or ($direction ==right) or ($direction ==left) {
+        $width: $width / 2;
+        $height: if(length($size) > 1, $height, $height/2);
 
-    @if $direction ==up {
-      border-bottom: $height solid $foreground-color;
-      border-left: $width solid $background-color;
-      border-right: $width solid $background-color;
+        @if $direction ==up {
+            border-bottom: $height solid $foreground-color;
+            border-left: $width solid $background-color;
+            border-right: $width solid $background-color;
+        }
+
+        @else if $direction ==right {
+            border-bottom: $width solid $background-color;
+            border-left: $height solid $foreground-color;
+            border-top: $width solid $background-color;
+        }
+
+        @else if $direction ==down {
+            border-left: $width solid $background-color;
+            border-right: $width solid $background-color;
+            border-top: $height solid $foreground-color;
+        }
+
+        @else if $direction ==left {
+            border-bottom: $width solid $background-color;
+            border-right: $height solid $foreground-color;
+            border-top: $width solid $background-color;
+        }
     }
 
-    @else if $direction ==right {
-      border-bottom: $width solid $background-color;
-      border-left: $height solid $foreground-color;
-      border-top: $width solid $background-color;
+    @else if ($direction ==up-right) or ($direction ==up-left) {
+        border-top: $height solid $foreground-color;
+
+        @if $direction ==up-right {
+            border-left: $width solid $background-color;
+        }
+
+        @else if $direction ==up-left {
+            border-right: $width solid $background-color;
+        }
     }
 
-    @else if $direction ==down {
-      border-left: $width solid $background-color;
-      border-right: $width solid $background-color;
-      border-top: $height solid $foreground-color;
+    @else if ($direction ==down-right) or ($direction ==down-left) {
+        border-bottom: $height solid $foreground-color;
+
+        @if $direction ==down-right {
+            border-left: $width solid $background-color;
+        }
+
+        @else if $direction ==down-left {
+            border-right: $width solid $background-color;
+        }
     }
 
-    @else if $direction ==left {
-      border-bottom: $width solid $background-color;
-      border-right: $height solid $foreground-color;
-      border-top: $width solid $background-color;
-    }
-  }
-
-  @else if ($direction ==up-right) or ($direction ==up-left) {
-    border-top: $height solid $foreground-color;
-
-    @if $direction ==up-right {
-      border-left: $width solid $background-color;
+    @else if ($direction ==inset-up) {
+        border-color: $background-color $background-color $foreground-color;
+        border-style: solid;
+        border-width: $height $width;
     }
 
-    @else if $direction ==up-left {
-      border-right: $width solid $background-color;
-    }
-  }
-
-  @else if ($direction ==down-right) or ($direction ==down-left) {
-    border-bottom: $height solid $foreground-color;
-
-    @if $direction ==down-right {
-      border-left: $width solid $background-color;
+    @else if ($direction ==inset-down) {
+        border-color: $foreground-color $background-color $background-color;
+        border-style: solid;
+        border-width: $height $width;
     }
 
-    @else if $direction ==down-left {
-      border-right: $width solid $background-color;
+    @else if ($direction ==inset-right) {
+        border-color: $background-color $background-color $background-color $foreground-color;
+        border-style: solid;
+        border-width: $width $height;
     }
-  }
 
-  @else if ($direction ==inset-up) {
-    border-color: $background-color $background-color $foreground-color;
-    border-style: solid;
-    border-width: $height $width;
-  }
-
-  @else if ($direction ==inset-down) {
-    border-color: $foreground-color $background-color $background-color;
-    border-style: solid;
-    border-width: $height $width;
-  }
-
-  @else if ($direction ==inset-right) {
-    border-color: $background-color $background-color $background-color $foreground-color;
-    border-style: solid;
-    border-width: $width $height;
-  }
-
-  @else if ($direction ==inset-left) {
-    border-color: $background-color $foreground-color $background-color $background-color;
-    border-style: solid;
-    border-width: $width $height;
-  }
+    @else if ($direction ==inset-left) {
+        border-color: $background-color $foreground-color $background-color $background-color;
+        border-style: solid;
+        border-width: $width $height;
+    }
 }
 
 
@@ -240,14 +240,14 @@
 $animation-speed: 0.3s !default;
 
 @mixin animate($properties, $duration: $animation-speed, $easing: ease-in-out) {
-  $list: ();
+    $list: ();
 
-  @each $prop in $properties {
-    $str: #{$prop} #{$duration} #{$easing};
-    $list: join($list, #{$str}, comma);
-  }
+    @each $prop in $properties {
+        $str: #{$prop} #{$duration} #{$easing};
+        $list: join($list, #{$str}, comma);
+    }
 
-  transition: $list;
+    transition: $list;
 }
 
 
@@ -266,26 +266,26 @@ $animation-speed: 0.3s !default;
 ///   }
 
 @mixin placeholder {
-  &::-webkit-input-placeholder {
-    @content;
-  }
+    &::-webkit-input-placeholder {
+        @content;
+    }
 
-  &::-moz-placeholder {
-    opacity: 1;
-    @content;
-  }
+    &::-moz-placeholder {
+        opacity: 1;
+        @content;
+    }
 
-  &:-moz-placeholder {
-    @content;
-  }
+    &:-moz-placeholder {
+        @content;
+    }
 
-  &:-ms-input-placeholder {
-    @content;
-  }
+    &:-ms-input-placeholder {
+        @content;
+    }
 
-  &.placeholder {
-    @content;
-  }
+    &.placeholder {
+        @content;
+    }
 }
 
 /// Font-size px to rem calc
@@ -295,84 +295,84 @@ $animation-speed: 0.3s !default;
 /// }
 
 @mixin rem-font-size($px-size) {
-  font-size: $px-size;
-  font-size: ($px-size / 10px) + rem;
+    font-size: $px-size;
+    font-size: ($px-size / 10px) + rem;
 }
 
 //font-face
 @mixin font-face($font-name, $font-path, $weight, $style) {
-  @font-face {
-    font-family: '#{$font-name}';
-    src: url('fonts/#{$font-path}.woff2') format('woff'),
-    url('fonts/#{$font-path}.woff') format('woff');
-    font-weight: $weight;
-    font-style: $style;
-  }
+    @font-face {
+        font-family: '#{$font-name}';
+        src: url('fonts/#{$font-path}.woff2') format('woff'),
+        url('fonts/#{$font-path}.woff') format('woff');
+        font-weight: $weight;
+        font-style: $style;
+    }
 }
 
 // Button sizes
 @mixin button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color) {
-  background: $btn-background;
-  color: $btn-color;
-  border: $btn-border;
+    background: $btn-background;
+    color: $btn-color;
+    border: $btn-border;
 
-  &:hover {
-    background: $btn-hover-background;
-    color: $btn-hover-color;
-    border: $btn-hover-border;
-  }
+    &:hover {
+        background: $btn-hover-background;
+        color: $btn-hover-color;
+        border: $btn-hover-border;
+    }
 }
 
 @mixin add-params() {
 
-  @each $val,
-  $media in $grid {
-    &.df-rr-#{$val} {
-      @include media('≥' + $media) {
-        flex-direction: row-reverse;
-      }
-    }
+    @each $val,
+    $media in $grid {
+        &.df-rr-#{$val} {
+            @include media('≥' + $media) {
+                flex-direction: row-reverse;
+            }
+        }
 
-    &.df-aic-#{$val} {
-      @include media('≥' + $media) {
-        align-items: center;
-      }
+        &.df-aic-#{$val} {
+            @include media('≥' + $media) {
+                align-items: center;
+            }
+        }
     }
-  }
 }
 
 // flex grid
 @mixin flex-grid() {
 
-  @each $val,
-  $media in $grid {
-    @for $gutter from 1 through 12 {
-      .col-#{$val}-#{$gutter} {
-        @include media('≥' + $media) {
-          flex: 1 0 calc(100% / 12 * #{$gutter});
-          max-width: calc(100% / 12 * #{$gutter});
+    @each $val,
+    $media in $grid {
+        @for $gutter from 1 through 12 {
+            .col-#{$val}-#{$gutter} {
+                @include media('≥' + $media) {
+                    flex: 1 0 calc(100% / 12 * #{$gutter});
+                    max-width: calc(100% / 12 * #{$gutter});
+                }
+            }
         }
-      }
-    }
 
-    @for $gutter from 0 through 11 {
-      .col-offset-#{$val}-#{$gutter} {
-        @include media('≥' + $media) {
-          margin-left: calc(100% / 12 * #{$gutter});
+        @for $gutter from 0 through 11 {
+            .col-offset-#{$val}-#{$gutter} {
+                @include media('≥' + $media) {
+                    margin-left: calc(100% / 12 * #{$gutter});
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @mixin v-center($min-height: 400px) {
-  display: flex;
-
-  >* {
-    min-height: $min-height;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-  }
+
+    >* {
+        min-height: $min-height;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
 }

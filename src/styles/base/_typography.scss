@@ -15,31 +15,31 @@ h5,
 h6,
 .h6,
 .h {
-  font-family: $headings-font-family;
-  color: $headings-color;
-  font-weight: bold;
-  margin: 0 0 10px;
+    font-family: $headings-font-family;
+    color: $headings-color;
+    font-weight: bold;
+    margin: 0 0 10px;
 
-  @include media('≥tablet') {
-    margin-bottom: 20px;
-  }
+    @include media('≥tablet') {
+        margin-bottom: 20px;
+    }
 }
 
 p {
-  margin: 0 0 20px;
+    margin: 0 0 20px;
 }
 
 a {
-  color: $base-link-color;
-  text-decoration: $text-decoration;
+    color: $base-link-color;
+    text-decoration: $text-decoration;
 
-  &:hover,
-  &:focus {
-    color: $base-link-hover-color;
-    text-decoration: $text-decoration-hover;
-  }
+    &:hover,
+    &:focus {
+        color: $base-link-hover-color;
+        text-decoration: $text-decoration-hover;
+    }
 }
 
 a[href*="mailto:"] {
-  word-wrap: break-word;
+    word-wrap: break-word;
 }

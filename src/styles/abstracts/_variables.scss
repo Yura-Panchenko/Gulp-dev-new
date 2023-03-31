@@ -17,18 +17,18 @@ $gray-900: #212529 !default;
 $black: #000 !default;
 
 $grays: (
-  ) !default;
+    ) !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $grays: map-merge(("100": $gray-100,
-      "200": $gray-200,
-      "300": $gray-300,
-      "400": $gray-400,
-      "500": $gray-500,
-      "600": $gray-600,
-      "700": $gray-700,
-      "800": $gray-800,
-      "900": $gray-900 ),
-    $grays
+            "200": $gray-200,
+            "300": $gray-300,
+            "400": $gray-400,
+            "500": $gray-500,
+            "600": $gray-600,
+            "700": $gray-700,
+            "800": $gray-800,
+            "900": $gray-900 ),
+        $grays
 );
 
 $blue: #007bff !default;
@@ -43,45 +43,45 @@ $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
 
 $colors: (
-  ) !default;
+    ) !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $colors: map-merge(("blue": $blue,
-      "indigo": $indigo,
-      "purple": $purple,
-      "pink": $pink,
-      "red": $red,
-      "orange": $orange,
-      "yellow": $yellow,
-      "green": $green,
-      "teal": $teal,
-      "cyan": $cyan,
-      "white": $white,
-      "gray": $gray-600,
-      "gray-dark": $gray-800 ),
-    $colors
+            "indigo": $indigo,
+            "purple": $purple,
+            "pink": $pink,
+            "red": $red,
+            "orange": $orange,
+            "yellow": $yellow,
+            "green": $green,
+            "teal": $teal,
+            "cyan": $cyan,
+            "white": $white,
+            "gray": $gray-600,
+            "gray-dark": $gray-800 ),
+        $colors
 );
 
-$primary: $blue  !default;
-$secondary: $gray-600  !default;
-$success: $green  !default;
-$info: $cyan  !default;
-$warning: $yellow  !default;
-$danger: $red  !default;
-$light: $gray-100  !default;
-$dark: $gray-800  !default;
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
 
 $theme-colors: (
-  ) !default;
+    ) !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $theme-colors: map-merge(("primary": $primary,
-      "secondary": $secondary,
-      "success": $success,
-      "info": $info,
-      "warning": $warning,
-      "danger": $danger,
-      "light": $light,
-      "dark": $dark ),
-    $theme-colors
+            "secondary": $secondary,
+            "success": $success,
+            "info": $info,
+            "warning": $warning,
+            "danger": $danger,
+            "light": $light,
+            "dark": $dark ),
+        $theme-colors
 );
 
 // fonts name
@@ -91,15 +91,15 @@ $base-font-serif: 'Times New Roman', 'Times', 'Baskerville', 'Georgia', serif;
 $base-font: $base-font-sans-serif;
 
 // Body
-$base-text-color: $black  !default;
-$base-background-color: $white  !default;
-$base-background-body: $white  !default;
-$base-background-footer: $base-background-body  !default;
+$base-text-color: $black !default;
+$base-background-color: $white !default;
+$base-background-body: $white !default;
+$base-background-footer: $base-background-body !default;
 $font-size-base: 16px !default;
 $line-height-base: 1.2 !default;
 $font-size-base-lagre: 18px !default;
 $line-height-base-lagre: 1.2 !default;
-$base-font-family: $base-font  !default;
+$base-font-family: $base-font !default;
 $base-min-width: 320px;
 
 // base variables
@@ -113,9 +113,9 @@ $padding-container: 0 $gutter;
 
 // grid sistem
 $grid: (
-  ph: 'phone',
-  sm: 'tablet',
-  md: 'desktop'
+    ph: 'phone',
+    sm: 'tablet',
+    md: 'desktop'
 );
 
 // font weight
@@ -140,30 +140,30 @@ $text-decoration-hover: none;
 
 // Headers size
 $title-palette: (
-  mobile: ('h1': 20,
-    'h2': 16,
-    'h3': 15,
-    'h4': 14,
-    'h5': 14,
-    'h6': 14),
-  tablet: ('h1': 40,
-    'h2': 30,
-    'h3': 28,
-    'h4': 20,
-    'h5': 18,
-    'h6': 16),
-  desktop: ('h1': 40,
-    'h2': 30,
-    'h3': 28,
-    'h4': 20,
-    'h5': 18,
-    'h6': 16),
-  widescreen: ('h1': 40,
-    'h2': 30,
-    'h3': 28,
-    'h4': 20,
-    'h5': 18,
-    'h6': 16)
+    mobile: ('h1': 20,
+        'h2': 16,
+        'h3': 15,
+        'h4': 14,
+        'h5': 14,
+        'h6': 14),
+    tablet: ('h1': 40,
+        'h2': 30,
+        'h3': 28,
+        'h4': 20,
+        'h5': 18,
+        'h6': 16),
+    desktop: ('h1': 40,
+        'h2': 30,
+        'h3': 28,
+        'h4': 20,
+        'h5': 18,
+        'h6': 16),
+    widescreen: ('h1': 40,
+        'h2': 30,
+        'h3': 28,
+        'h4': 20,
+        'h5': 18,
+        'h6': 16)
 );
 
 // headings style
@@ -181,31 +181,31 @@ $btn-padding-sm: 4px 10px !default;
 $btn-font-size: 15px !default;
 $btn-line-height: $btn-font-size + 2;
 
-$btn-background: $black  !default;
-$btn-border: $btn-background  !default;
-$btn-color: $white  !default;
+$btn-background: $black !default;
+$btn-border: $btn-background !default;
+$btn-color: $white !default;
 // hover
 $btn-hover-background: darken($btn-background, 10%) !default;
-$btn-hover-border: $btn-hover-background  !default;
-$btn-hover-color: $white  !default;
+$btn-hover-border: $btn-hover-background !default;
+$btn-hover-color: $white !default;
 
 // btn primary
-$btn-background-primary: $primary  !default;
-$btn-border-primary: $primary  !default;
-$btn-color-primary: $white  !default;
+$btn-background-primary: $primary !default;
+$btn-border-primary: $primary !default;
+$btn-color-primary: $white !default;
 // hover
 $btn-hover-background-primary: darken($primary, 10%) !default;
-$btn-hover-border-primary: $btn-hover-background-primary  !default;
-$btn-hover-color-primary: $white  !default;
+$btn-hover-border-primary: $btn-hover-background-primary !default;
+$btn-hover-color-primary: $white !default;
 
 // btn warning
-$btn-background-warning: $warning  !default;
-$btn-border-warning: $btn-background-warning  !default;
-$btn-color-warning: $white  !default;
+$btn-background-warning: $warning !default;
+$btn-border-warning: $btn-background-warning !default;
+$btn-color-warning: $white !default;
 // hover
 $btn-hover-background-warning: darken($warning, 10%) !default;
-$btn-hover-border-warning: $btn-hover-background-warning  !default;
-$btn-hover-color-warning: $white  !default;
+$btn-hover-border-warning: $btn-hover-background-warning !default;
+$btn-hover-color-warning: $white !default;
 
 // Forms
 $input-font-size: $font-size-base; // font size for forms elements
@@ -213,13 +213,13 @@ $input-line-height: $input-font-size + 2; // line height for forms elements
 $input-font-family: $base-font;
 $input-padding-vertical: 10px !default; // padding for forms elements
 $input-padding-horizontal: 20px !default; // padding for forms elements
-$input-padding: $input-padding-vertical $input-padding-horizontal  !default;
+$input-padding: $input-padding-vertical $input-padding-horizontal !default;
 $input-border-width: 1px !default; // border input's width
-$input-border: $input-border-width solid $black  !default; // border for forms elements
+$input-border: $input-border-width solid $black !default; // border for forms elements
 $input-border-radius: 0 !default; // border radius for forms elements
 $inpH: $input-border-width + 2 * $input-padding-vertical + $input-line-height;
 $input-height: (
-  2 * ($input-border-width + $input-padding-vertical) + $input-line-height) !default; // height for forms elements
+    2 * ($input-border-width + $input-padding-vertical) + $input-line-height) !default; // height for forms elements
 //submit
 $submit-background: $btn-background;
 $submit-color: $btn-color;
@@ -232,9 +232,9 @@ $submit-line-height: $input-line-height;
 $submit-hover-background: $btn-hover-background; // submit background hover
 $submit-hover-color: $btn-hover-color; // submit color hover
 //focus
-$input-focus-border-color: $black  !default; // border color for forms elements
+$input-focus-border-color: $black !default; // border color for forms elements
 //placeholder
-$placeholder-color: $gray  !default;
+$placeholder-color: $gray !default;
 // select
 $select-height: $input-height;
 $select-border: $input-border;

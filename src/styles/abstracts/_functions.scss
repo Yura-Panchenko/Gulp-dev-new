@@ -5,43 +5,43 @@
 ///     color: white(0.9);
 ///   }
 @function black($opacity) {
-  @return rgba(black, $opacity);
+    @return rgba(black, $opacity);
 }
 
 @function white($opacity) {
-  @return rgba(white, $opacity);
+    @return rgba(white, $opacity);
 }
 
 @mixin title-size($symbol) {
 
-  @each $media,
-  $titles-size in $title-palette {
-    @if $media ==mobile {
+    @each $media,
+    $titles-size in $title-palette {
+        @if $media ==mobile {
 
-      @each $title,
-      $size in $titles-size {
+            @each $title,
+            $size in $titles-size {
 
-        #{$title},
-        .#{$title} {
-          font-size: $size + px;
+                #{$title},
+                .#{$title} {
+                    font-size: $size + px;
+                }
+            }
         }
-      }
-    }
 
-    @else {
-      @include media(#{$symbol}#{$media}) {
+        @else {
+            @include media(#{$symbol}#{$media}) {
 
-        @each $title,
-        $size in $titles-size {
+                @each $title,
+                $size in $titles-size {
 
-          #{$title},
-          .#{$title} {
-            font-size: $size + px;
-          }
+                    #{$title},
+                    .#{$title} {
+                        font-size: $size + px;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 //
@@ -51,19 +51,19 @@
 // STRIP UNIT
 // It strips the unit of measure and returns it
 @function strip-unit($num) {
-  @return $num / ($num * 0 + 1);
+    @return $num / ($num * 0 + 1);
 }
 
 // CONVERT TO REM
 @function convert-to-rem($value, $base-value: $rem-base) {
-  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+    $value: strip-unit($value) / strip-unit($base-value) * 1rem;
 
-  @if ($value ==0rem) {
-    $value: 0;
-  }
+    @if ($value ==0rem) {
+        $value: 0;
+    }
 
-  // Turn 0rem into 0
-  @return $value;
+    // Turn 0rem into 0
+    @return $value;
 }
 
 // REM CALC
@@ -86,36 +86,36 @@
 //   rem-calc((16px, 32px, 48), 8px);
 
 @function rem-calc($values, $base-value: $rem-base) {
-  $max: length($values);
+    $max: length($values);
 
-  @if $max ==1 {
-    @return convert-to-rem(nth($values, 1), $base-value);
-  }
+    @if $max ==1 {
+        @return convert-to-rem(nth($values, 1), $base-value);
+    }
 
-  $remValues: (
-  );
+    $remValues: (
+    );
 
 @for $i from 1 through $max {
-  $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
 }
 
 @return $remValues;
 }
 
 @function em-calc($values, $base-value: $rem-base) {
-  $remValues: rem-calc($values, $base-value: $rem-base);
+    $remValues: rem-calc($values, $base-value: $rem-base);
 
-  $max: length($remValues);
+    $max: length($remValues);
 
-  @if $max ==1 {
-    @return strip-unit(nth($remValues, 1)) * 1em;
-  }
+    @if $max ==1 {
+        @return strip-unit(nth($remValues, 1)) * 1em;
+    }
 
-  $emValues: (
-  );
+    $emValues: (
+    );
 
 @for $i from 1 through $max {
-  $emValues: append($emValues, strip-unit(nth($remValues, $i)) * 1em);
+    $emValues: append($emValues, strip-unit(nth($remValues, $i)) * 1em);
 }
 
 @return $emValues;
@@ -128,41 +128,41 @@
 ///     color: white(0.9);
 ///   }
 @function black($opacity) {
-  @return rgba(black, $opacity);
+    @return rgba(black, $opacity);
 }
 
 @function white($opacity) {
-  @return rgba(white, $opacity);
+    @return rgba(white, $opacity);
 }
 
 @mixin title-size($symbol) {
 
-  @each $media,
-  $titles-size in $title-palette {
-    @if $media ==mobile {
+    @each $media,
+    $titles-size in $title-palette {
+        @if $media ==mobile {
 
-      @each $title,
-      $size in $titles-size {
+            @each $title,
+            $size in $titles-size {
 
-        #{$title},
-        .#{$title} {
-          font-size: $size + px;
+                #{$title},
+                .#{$title} {
+                    font-size: $size + px;
+                }
+            }
         }
-      }
-    }
 
-    @else {
-      @include media(#{$symbol}#{$media}) {
+        @else {
+            @include media(#{$symbol}#{$media}) {
 
-        @each $title,
-        $size in $titles-size {
+                @each $title,
+                $size in $titles-size {
 
-          #{$title},
-          .#{$title} {
-            font-size: $size + px;
-          }
+                    #{$title},
+                    .#{$title} {
+                        font-size: $size + px;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
