@@ -36,7 +36,9 @@ let cleanCssLevelOpts = {
         tidySelectors: false,
         tidyAtRules: true,
         tidyBlockScopes: true,
-        semicolonAfterLastProperty: true
+        semicolonAfterLastProperty: true,
+        replaceMultipleZeros: false,
+        replaceZeroUnits: false
     },
     2: {
         all: false,
@@ -159,7 +161,45 @@ function scss() {
             format: 'beautify',
             inline: ['local', 'remote', '!fonts.googleapis.com'],
             sourceMap: false,
-            level: cleanCssLevelOpts
+            level: cleanCssLevelOpts,
+            compatibility: {
+                colors: {
+                    hexAlpha: false, // controls 4- and 8-character hex color support
+                    opacity: true // controls `rgba()` / `hsla()` color support
+                },
+                properties: {
+                    backgroundClipMerging: true, // controls background-clip merging into shorthand
+                    backgroundOriginMerging: true, // controls background-origin merging into shorthand
+                    backgroundSizeMerging: true, // controls background-size merging into shorthand
+                    colors: true, // controls color optimizations
+                    ieBangHack: false, // controls keeping IE bang hack
+                    ieFilters: false, // controls keeping IE `filter` / `-ms-filter`
+                    iePrefixHack: false, // controls keeping IE prefix hack
+                    ieSuffixHack: false, // controls keeping IE suffix hack
+                    merging: true, // controls property merging based on understandability
+                    shorterLengthUnits: false, // controls shortening pixel units into `pc`, `pt`, or `in` units
+                    spaceAfterClosingBrace: true, // controls keeping space after closing brace - `url() no-repeat` into `url()no-repeat`
+                    urlQuotes: true, // controls keeping quoting inside `url()`
+                    zeroUnits: false // controls removal of units `0` value
+                },
+                selectors: {
+                    adjacentSpace: false, // controls extra space before `nav` element
+                    ie7Hack: true, // controls removal of IE7 selector hacks, e.g. `*+html...`
+                    mergeLimit: 8191, // controls maximum number of selectors in a single rule (since 4.1.0)
+                    multiplePseudoMerging: true // controls merging of rules with multiple pseudo classes / elements (since 4.1.0)
+                },
+                units: {
+                    ch: true, // controls treating `ch` as a supported unit
+                    in: true, // controls treating `in` as a supported unit
+                    pc: true, // controls treating `pc` as a supported unit
+                    pt: true, // controls treating `pt` as a supported unit
+                    rem: true, // controls treating `rem` as a supported unit
+                    vh: true, // controls treating `vh` as a supported unit
+                    vm: true, // controls treating `vm` as a supported unit
+                    vmax: true, // controls treating `vmax` as a supported unit
+                    vmin: true // controls treating `vmin` as a supported unit
+                }
+            }
         })))
         .pipe(gulpif(isDevelopment, sourcemaps.write()))
         .pipe(plumber.stop())
