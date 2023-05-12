@@ -1,0 +1,194 @@
+.widget.widget_meta
+	h3 Meta
+	ul
+		li
+			a(href='http://widgets.demo.w3.ua/wp-login.php') Log in
+		li
+			a(title='Syndicate this site using RSS 2.0', href='#')
+				| Entries
+				abbr(title='Really Simple Syndication') RSS
+		li
+			a(title='The latest comments to all posts in RSS', href='#')
+				| Comments
+				abbr(title='Really Simple Syndication') RSS
+		li
+			a(title='Powered by WordPress, state-of-the-art semantic personal publishing platform.', href='https://wordpress.org/') WordPress.org
+.widget.widget_categories
+	h3 Categories (dropdown)
+	select#cat.postform(name='cat')
+		option(value='-1') Select Category
+		option.level-0(value='1') Uncategorized
+.widget.widget_categories
+	h3 Categories (hierarchy)
+	ul
+		li.cat-item
+			a(href='#') Uncategorized
+		li.cat-item
+			a(href='#') Category 2
+.widget.widget_categories
+	h3 Categories (counts)
+	ul
+		li.cat-item
+			a(href='#') Uncategorized
+			|  (3)
+		li.cat-item
+			a(href='#') Category 2
+			|  (15)
+.widget.widget_archive
+	h3 Archives_counts
+	ul
+		li
+			a(href='#') June 2014
+			|  (1)
+		li
+			a(href='#') May 2014
+			|  (1)
+		li
+			a(href='#') April 2014
+			|  (1)
+.widget.widget_archive
+	h3 Archives
+	select(name='archive-dropdown')
+		option(value='') Select Month
+		option(value='')  June 2014
+		option(value='')  May 2014
+		option(value='')  April 2014
+.widget.widget_recent_comments
+	h3 Recent Comments
+	ul
+		li.recentcomments
+			a.url(rel='external nofollow', href='#') Mr WordPress
+			|  on
+			a(href='#') Hello world!
+		li.recentcomments
+			a.url(rel='external nofollow', href='#') Mr WordPress
+			|  on
+			a(href='#') Hello world2.
+.widget.widget_recent_entries
+	h3.widget-title Recent Posts
+	ul
+		li: a(href='#') Post 1
+		li: a(href='#') Post 2
+		li: a(href='#') Post 3
+.widget.widget_text
+	h3 Text
+	p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+.widget.widget_search
+	h3 Search
+	form.search-form(action='#', method='get')
+		input(type='search', placeholder='Enter search terms...', name='s')
+		input(type='submit', value='Search')
+.widget.widget_calendar
+	h3 Calendar
+	#calendar_wrap.calendar_wrap
+		table#wp-calendar
+			caption May 2014
+			thead
+				tr
+					th(title='Monday', scope='col') M
+					th(title='Tuesday', scope='col') T
+					th(title='Wednesday', scope='col') W
+					th(title='Thursday', scope='col') T
+					th(title='Friday', scope='col') F
+					th(title='Saturday', scope='col') S
+					th(title='Sunday', scope='col') S
+			tfoot
+				tr
+					td#prev(colspan='3')
+						a(title='View posts for April 2014', href='#') « Apr
+					td.pad &nbsp;
+					td#next(colspan='3')
+						a(title='View posts for June 2014', href='#') Jun »
+			tbody
+				tr
+					td.pad(colspan='3') &nbsp;
+					td 1
+					td 2
+					td 3
+					td 4
+				tr
+					td 5
+					td 6
+					td 7
+					td 8
+					td 9
+					td 10
+					td 11
+				tr
+					td 12
+					td 13
+					td 14
+					td 15
+					td 16
+					td 17
+					td 18
+				tr
+					td 19
+					td 20
+					td 21
+					td 22
+					td 23
+					td 24
+					td 25
+				tr
+					td
+						a(title='post', href='#') 26
+					td 27
+					td 28
+					td 29
+					td 30
+					td 31
+					td.pad(colspan='1')
+.widget.widget_pages
+	h3 Pages
+	ul
+		li.page_item
+			a(href='#') Sample Page
+		li.page_item
+			a(href='#') Sample Page2
+		li.page_item
+			a(href='#') Sample Page3
+.widget.widget_tag_cloud
+	h3 Tag
+	ul.tagcloud
+		li: a(style='font-size: 8px;', title='1 topic', href='#') test
+		li: a(style='font-size: 16px;', title='1 topic', href='#') test_2
+		li: a(style='font-size: 12px;', title='1 topic', href='#') test_4
+		li: a(style='font-size: 20px;', title='1 topic', href='#') test_5
+		li: a(style='font-size: 8px;', title='1 topic', href='#') test__3
+.widget.widget_media_image
+	h3 A Unicorn
+	img.image.attachment-medium.size-medium(width='300', height='225', src='images/unicorn-wallpaper-300x225.jpg', alt='Unicorn Wallpaper', style='max-width: 100%; height: auto;')
+.widget.widget_rss
+	h3.widget-title
+		a.rsswidget(href='#')
+			img.rss-widget-icon(style='border:0', width='14', height='14', src='images/rss.png', alt='RSS')
+		a.rsswidget(href='#') News
+	ul
+		li
+			a.rsswidget(href='#') Bern digital – so erleben wir die neue Bürostadt online
+			span.rss-date December 15, 2017
+			.rssSummary
+				| Eine neue Stadt erfordert neue Kenntnisse. Mit bernischem Teamzuwachs bereiten wir uns auch kulturell auf die Bern-Erweiterung vor.
+			cite Tamara Angele
+		li
+			a.rsswidget(href='#') Noch mehr News: Bernet Relations neu in Bern
+			span.rss-date December 11, 2017
+			.rssSummary
+				| Das Jahr neigt sich dem Ende zu. Ereignisreich war es für uns und erfreulich. Ein Ass haben wir noch im Ärmel. Nach unserem Rebranding verkünden wir heute nochmals News in eigener Sache: Ab Januar arbeiten wir auch im eigenen Büro in Bern. Wir freuen uns sehr.
+			cite Irène Messerli
+.widget.widget_media_gallery
+	h3 Default Galery
+	.gallery.gallery-columns-3.gallery-size-thumbnail
+		figure.gallery-item
+			.gallery-icon.landscape
+				a(href='#')
+					img.attachment-thumbnail.size-thumbnail(width='150', height='150', src='images/img-150x150.jpg', alt='Unicorn Wallpaper')
+		figure.gallery-item
+			.gallery-icon.landscape
+				a(href='#')
+					img.attachment-thumbnail.size-thumbnail(width='150', height='150', src='images/img-150x150.jpg', alt='Image Alignment 1200x4002')
+		figure.gallery-item
+			.gallery-icon.landscape
+				a(href='#')
+					img.attachment-thumbnail.size-thumbnail(width='150', height='150', src='images/img-150x150.jpg', alt='Image Alignment 580x300')
