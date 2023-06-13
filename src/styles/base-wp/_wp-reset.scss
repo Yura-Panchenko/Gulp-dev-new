@@ -22,6 +22,15 @@
     }
 }
 
+:root {
+    --wp--style--global--content-size: #{$max-width-center-container};
+}
+
+.wp-block-group__inner-container {
+    padding-left: $gutter;
+    padding-right: $gutter;
+}
+
 [id="twocolumns"] {
     @include media('≥tablet') {
         display: flex;
