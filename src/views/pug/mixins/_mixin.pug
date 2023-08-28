@@ -1,26 +1,26 @@
 //- -var bodyClass= "home"; // add class on body
-	body(class= bodyClass)
+    body(class= bodyClass)
 
 //- - var curentClass = 'home'
-	ul
-		li(class={active: curentClass === 'home'}): a(href="index.html") home
-		li(class={active: curentClass === 'about'}): a(href="about.html") about  us
-		li(class={active: curentClass === 'properties'}): a(href="properties.html") properties
-		li(class={active: curentClass === 'region'}): a(href="region.html") the region
-		li(class={active: curentClass === 'contact'}): a(href="contact.html") contact us
+    ul
+        li(class={active: curentClass === 'home'}): a(href="index.html") home
+        li(class={active: curentClass === 'about'}): a(href="about.html") about  us
+        li(class={active: curentClass === 'properties'}): a(href="properties.html") properties
+        li(class={active: curentClass === 'region'}): a(href="region.html") the region
+        li(class={active: curentClass === 'contact'}): a(href="contact.html") contact us
 
 //- insert on the page
-	ul.social
-		each ico in ["icon-linkedin", "icon-youtube", "icon-twitter", "icon-pinterest", "icon-instagram2", "icon-facebook"]
-			li: a(href="#"): span(class=""+ ico)
+    ul.social
+        each ico in ["icon-linkedin", "icon-youtube", "icon-twitter", "icon-pinterest", "icon-instagram2", "icon-facebook"]
+            li: a(href="#"): span(class=""+ ico)
 
 //- +bgRetina({
 //-   imgName: 'slide-01'
 //- })
 mixin bgRetina(obj)
-	.bg-retina
-		span(data-srcset="images/small-"+obj.imgName+".jpg, images/small-"+obj.imgName+"@2x.jpg 2x")
-		span(data-srcset="images/"+obj.imgName+".jpg", data-media="(min-width: 768px)")
+    .bg-retina
+        span(data-srcset="images/small-"+obj.imgName+".jpg, images/small-"+obj.imgName+"@2x.jpg 2x")
+        span(data-srcset="images/"+obj.imgName+".jpg", data-media="(min-width: 768px)")
 
 //- +retina ({
 //-  imgName: 'img-01',
@@ -28,11 +28,11 @@ mixin bgRetina(obj)
 //- })
 
 mixin retina(obj)
-	picture
-		source(srcset='images/small-'+obj.imgName+'.jpg, images/small-'+obj.imgName+'-2x.jpg 2x, images/small-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 767px)')
-		source(srcset='images/medium-'+obj.imgName+'.jpg, images/medium-'+obj.imgName+'-2x.jpg 2x, images/medium-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 1024px)')
-		source(srcset='images/large-'+obj.imgName+'.jpg, images/large-'+obj.imgName+'-2x.jpg 2x, images/large-'+obj.imgName+'-3x.jpg 3x')
-		img(src='images/large-'+obj.imgName+'.jpg', alt= obj.alt || "image description")
+    picture
+        source(srcset='images/small-'+obj.imgName+'.jpg, images/small-'+obj.imgName+'-2x.jpg 2x, images/small-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 767px)')
+        source(srcset='images/medium-'+obj.imgName+'.jpg, images/medium-'+obj.imgName+'-2x.jpg 2x, images/medium-'+obj.imgName+'-3x.jpg 3x', media='(max-width: 1024px)')
+        source(srcset='images/large-'+obj.imgName+'.jpg, images/large-'+obj.imgName+'-2x.jpg 2x, images/large-'+obj.imgName+'-3x.jpg 3x')
+        img(src='images/large-'+obj.imgName+'.jpg', alt= obj.alt || "image description")
 
 //- +retinaPng ({
 //-  imgName: 'img-01',
@@ -40,29 +40,29 @@ mixin retina(obj)
 //- })
 
 mixin retinaPng(obj)
-	picture
-		source(srcset='images/small-'+obj.imgName+'.png, images/small-'+obj.imgName+'-2x.png 2x, images/small-'+obj.imgName+'-3x.png 3x', media='(max-width: 767px)')
-		source(srcset='images/medium-'+obj.imgName+'.png, images/medium-'+obj.imgName+'-2x.png 2x, images/medium-'+obj.imgName+'-3x.png 3x', media='(max-width: 1024px)')
-		source(srcset='images/large-'+obj.imgName+'.png, images/large-'+obj.imgName+'-2x.png 2x, images/large-'+obj.imgName+'-3x.png 3x')
-		img(src='images/large-'+obj.imgName+'.png', alt= obj.alt || "image description")
+    picture
+        source(srcset='images/small-'+obj.imgName+'.png, images/small-'+obj.imgName+'-2x.png 2x, images/small-'+obj.imgName+'-3x.png 3x', media='(max-width: 767px)')
+        source(srcset='images/medium-'+obj.imgName+'.png, images/medium-'+obj.imgName+'-2x.png 2x, images/medium-'+obj.imgName+'-3x.png 3x', media='(max-width: 1024px)')
+        source(srcset='images/large-'+obj.imgName+'.png, images/large-'+obj.imgName+'-2x.png 2x, images/large-'+obj.imgName+'-3x.png 3x')
+        img(src='images/large-'+obj.imgName+'.png', alt= obj.alt || "image description")
 
 //- +imgPng({
 //- 	image: ''
 //- })
 mixin imgPng(obj)
-	img(src="./images/"+obj.image+".png" srcset="./images/"+obj.image+"-2x.png 2x" alt="image description")
+    img(src="./images/"+obj.image+".png" srcset="./images/"+obj.image+"-2x.png 2x" alt="image description")
 
 //- +imgJpg({
 //- 	image: ''
 //- })
 mixin imgJpg(obj)
-	img(src="./images/"+obj.image+".jpg" srcset="./images/"+obj.image+"-2x.jpg 2x" alt="image description")
+    img(src="./images/"+obj.image+".jpg" srcset="./images/"+obj.image+"-2x.jpg 2x" alt="image description")
 
 //-
-	-for (var i = 0; i <= 20; i++)
-		tr
-			each item in ['<time datetime="2017-01-31">31.01.17</time>', 'Åpen søknad', '<a href="#"><b>Ole Christian</b></a>', '<a href="#"><b>Storesundsen</b></a>', 'Sivil ingeniør/advokat', 'Interjuet', 'Erstatningsrett', 'Ja', '<ul class="button-list"><li><a class="btn btn-primary btn-sm" href="#">Rediger</a></li></ul>']
-				td!= item
+    -for (var i = 0; i <= 20; i++)
+        tr
+            each item in ['<time datetime="2017-01-31">31.01.17</time>', 'Åpen søknad', '<a href="#"><b>Ole Christian</b></a>', '<a href="#"><b>Storesundsen</b></a>', 'Sivil ingeniør/advokat', 'Interjuet', 'Erstatningsrett', 'Ja', '<ul class="button-list"><li><a class="btn btn-primary btn-sm" href="#">Rediger</a></li></ul>']
+                td!= item
 
 //- +tabsetList([
 //-   {
@@ -77,22 +77,22 @@ mixin imgJpg(obj)
 //-   }
 //- ])
 mixin tabsetList(arr)
-	ul.tabset
-		each obj in arr
-			li: a(href="#", class=(obj.active ? 'active' : '') data-tab='#'+obj.dataTab)= obj.item
+    ul.tabset
+        each obj in arr
+            li: a(href="#", class=(obj.active ? 'active' : '') data-tab='#'+obj.dataTab)= obj.item
 //-
-	-for (var i = 1; i <= 18; i++)
-		li: a(href='#'): img(src='images/client-0'+i+'.png', alt='image description')
+    -for (var i = 1; i <= 18; i++)
+        li: a(href='#'): img(src='images/client-0'+i+'.png', alt='image description')
 
 //- +accordion({
 //-   opener: 'Is Agent &amp; Heroes a reputable company to work with?',
 //-   contentSlide: 'It .'
 //- })
 mixin accordion(obj)
-	a.opener(href="#")= obj.opener
-	.slide
-		.holder
-			p= obj.contentSlide
+    a.opener(href="#")= obj.opener
+    .slide
+        .holder
+            p= obj.contentSlide
 
 //- +imgMask({
 //- 	idSvgMask: 'svgmask'
@@ -100,20 +100,20 @@ mixin accordion(obj)
 //- 	imgName: 'img-name',
 //- })
 mixin imgMask(obj)
-	svg(width='100%', height='100%', baseprofile='full', version='1.2')
-		defs
-			mask.mask(id=''+obj.idSvgMask, maskunits='userSpaceOnUse', maskcontentunits='userSpaceOnUse', transform='scale(1)')
-				image(width='100%', height='100%', xlink:href='images/'+obj.mask)
-		image#the-mask(mask='url(#'+obj.idSvgMask+')', width='100%', height='100%', y='0', x='0', xlink:href='images/'+obj.imgName)
+    svg(width='100%', height='100%', baseprofile='full', version='1.2')
+        defs
+            mask.mask(id=''+obj.idSvgMask, maskunits='userSpaceOnUse', maskcontentunits='userSpaceOnUse', transform='scale(1)')
+                image(width='100%', height='100%', xlink:href='images/'+obj.mask)
+        image#the-mask(mask='url(#'+obj.idSvgMask+')', width='100%', height='100%', y='0', x='0', xlink:href='images/'+obj.imgName)
 
 //- +breadcrumbs({
 //-   arr: ['item01', 'item02']
 //- })
 mixin breadcrumbs(obj)
-	ul.breadcrumbs
-		-for (var i = 1; i <= obj.arr.length - 1; i++)
-			li: a(href='#')= obj.arr[i - 1]
-		li: span= obj.arr[obj.arr.length - 1]
+    ul.breadcrumbs
+        -for (var i = 1; i <= obj.arr.length - 1; i++)
+            li: a(href='#')= obj.arr[i - 1]
+        li: span= obj.arr[obj.arr.length - 1]
 
 //- +card({
 //- 		imageName: '',
@@ -122,17 +122,17 @@ mixin breadcrumbs(obj)
 //- 		link: ''
 //- 	})
 mixin card(obj)
-	.card
-		if (obj.imageName)
-			.card-img: a(href="#"): img(src="images/"+obj.imageName, alt="image description")
-		.card-body
-			if (obj.title)
-				h3.card-title: a(href="#")= obj.title
-			if (obj.text)
-				p= obj.text
-			if (obj.link)
-			.btn-wrap
-				a.btn.btn-default(href="#")= obj.link
+    .card
+        if (obj.imageName)
+            .card-img: a(href="#"): img(src="images/"+obj.imageName, alt="image description")
+        .card-body
+            if (obj.title)
+                h3.card-title: a(href="#")= obj.title
+            if (obj.text)
+                p= obj.text
+            if (obj.link)
+            .btn-wrap
+                a.btn.btn-default(href="#")= obj.link
 
 //- +rowImageText({
 //- 	reverse: true,
@@ -143,23 +143,23 @@ mixin card(obj)
 //- 	textRight: 'Up to 300dpi'
 //- })
 mixin rowImageText(obj)
-	.row-image-text(class=obj.reverse ? 'row-image-text--reverse': '')
-		.row-image-text__col
-			.row-image-text__visual: img(src="images/"+obj.image, alt="image")
-		.row-image-text__col
-			.row-image-text__content
-				h5!=obj.title
-				p!=obj.text
-				-if(obj.textRight || obj.textLeft)
-					.two-columns
-						-if( obj.textLeft)
-							.two-columns__col
-								h6 Available Sizes:
-								p!=obj.textLeft
-						-if(obj.textRight)
-							.two-columns__col
-								h6 Resolution:
-								p!=obj.textRight
+    .row-image-text(class=obj.reverse ? 'row-image-text--reverse': '')
+        .row-image-text__col
+            .row-image-text__visual: img(src="images/"+obj.image, alt="image")
+        .row-image-text__col
+            .row-image-text__content
+                h5!=obj.title
+                p!=obj.text
+                -if(obj.textRight || obj.textLeft)
+                    .two-columns
+                        -if( obj.textLeft)
+                            .two-columns__col
+                                h6 Available Sizes:
+                                p!=obj.textLeft
+                        -if(obj.textRight)
+                            .two-columns__col
+                                h6 Resolution:
+                                p!=obj.textRight
 
 
 //- +sectionScroll({
@@ -185,29 +185,29 @@ mixin rowImageText(obj)
 //- 	]
 //- })
 mixin sectionScroll(obj)
-	section.section-scroll 
-		.container.container-p-left
-			.side-nav-block
-				.side-nav-box
-					.sticky-wrap
-						.section-text
-							-if(obj.title)
-								h2!=obj.title
-							-if(obj.text)
-								.section-text__hold
-									p!=obj.text
-						ul.side-nav
-							each el,i in obj.anchors
-								li: a.anchor.anchor-active(href="#id"+(i+1))!=el.title
-						-if(obj.button)
-							a.btn.btn-without-border.btn-underlined(href="#")!=obj.button
-				.side-blocks
-					each el,i in obj.anchors
-						.block(id="id"+(i+1))
-							.img-box 
-								img(src="images/"+el.image, alt="image")
-							h3!=el.title
-							p!=el.description
-							-if(el.link)
-								.block-link-wrap
-									a.btn.btn-without-border.btn-underlined(href="#")!=el.link
+    section.section-scroll 
+        .container.container-p-left
+            .side-nav-block
+                .side-nav-box
+                    .sticky-wrap
+                        .section-text
+                            -if(obj.title)
+                                h2!=obj.title
+                            -if(obj.text)
+                                .section-text__hold
+                                    p!=obj.text
+                        ul.side-nav
+                            each el,i in obj.anchors
+                                li: a.anchor.anchor-active(href="#id"+(i+1))!=el.title
+                        -if(obj.button)
+                            a.btn.btn-without-border.btn-underlined(href="#")!=obj.button
+                .side-blocks
+                    each el,i in obj.anchors
+                        .block(id="id"+(i+1))
+                            .img-box 
+                                img(src="images/"+el.image, alt="image")
+                            h3!=el.title
+                            p!=el.description
+                            -if(el.link)
+                                .block-link-wrap
+                                    a.btn.btn-without-border.btn-underlined(href="#")!=el.link

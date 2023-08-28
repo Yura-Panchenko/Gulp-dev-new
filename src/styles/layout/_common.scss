@@ -2,14 +2,19 @@
 // This file contains all styles related to the common layout of the site
 // -----------------------------------------------------------------------------
 [id="wrapper"] {
-  width: 100%;
-  overflow: hidden;
-  background: $base-background-color;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: $base-background-color;
+}
+
+main {
+    flex-grow: 1;
 }
 
 .container {
-  @extend %clearfix;
-  max-width: $max-width-center-container;
-  padding: $padding-container;
-  margin: 0 auto;
+    width: 100%;
+    max-width: $max-width-center-container;
+    padding: $padding-container;
+    margin: 0 auto;
 }
