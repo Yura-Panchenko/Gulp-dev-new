@@ -112,10 +112,10 @@ $gutter: 15px;
 $padding-container: 0 $gutter;
 
 $unit-intervals: (
-  'px': 0.02,
-  'em': 0.01,
-  'rem': 0.1,
-  '': 0
+    'px': 0.02,
+    'em': 0.01,
+    'rem': 0.1,
+    '': 0
 );
 
 // grid sistem
@@ -178,41 +178,47 @@ $headings-font-family: $base-font-family;
 $headings-color: inherit !default;
 
 // Buttons
-// btn default
 $btn-border-width: 1px !default;
-// $btn-border:                        $btn-border-width solid transparent !default;
-$btn-border-radius: $base-radius;
-$btn-border-radius-sm: $base-radius-small;
+$btn-border-radius: 5px !default;
+$btn-border-radius-sm: calc($btn-border-radius / 2) !default;
+$btn-border-radius-lg: calc($btn-border-radius * 2) !default;
 $btn-padding: 10px 20px !default;
-$btn-padding-sm: 4px 10px !default;
+$btn-padding-sm: 5px 10px !default;
+$btn-padding-lg: 20px 40px !default;
 $btn-font-size: 15px !default;
+$btn-font-size-sm: 12px !default;
+$btn-font-size-lg: 18px !default;
 $btn-line-height: $btn-font-size + 2;
+$btn-line-height-sm: $btn-font-size-sm + 2;
+$btn-line-height-lg: $btn-font-size-lg + 2;
 
-$btn-background: $black !default;
-$btn-border: $btn-background !default;
-$btn-color: $white !default;
+// btn default
+$btn-color-default: $white !default;
+$btn-background-default: $black !default;
+$btn-border-color-default: $btn-background-default !default;
+
 // hover
-$btn-hover-background: darken($btn-background, 10%) !default;
-$btn-hover-border: $btn-hover-background !default;
-$btn-hover-color: $white !default;
+$btn-hover-color-default: $btn-background-default !default;
+$btn-hover-background-default: $btn-color-default !default;
+$btn-hover-border-color-default: $btn-background-default !default;
 
 // btn primary
-$btn-background-primary: $primary !default;
-$btn-border-primary: $primary !default;
 $btn-color-primary: $white !default;
+$btn-background-primary: $primary !default;
+$btn-border-color-primary: $primary !default;
 // hover
-$btn-hover-background-primary: darken($primary, 10%) !default;
-$btn-hover-border-primary: $btn-hover-background-primary !default;
 $btn-hover-color-primary: $white !default;
+$btn-hover-background-primary: darken($primary, 10%) !default;
+$btn-hover-border-color-primary: $btn-hover-background-primary !default;
 
-// btn warning
-$btn-background-warning: $warning !default;
-$btn-border-warning: $btn-background-warning !default;
-$btn-color-warning: $white !default;
+// btn secondary
+$btn-color-secondary: $white !default;
+$btn-background-secondary: $secondary !default;
+$btn-border-color-secondary: $secondary !default;
 // hover
-$btn-hover-background-warning: darken($warning, 10%) !default;
-$btn-hover-border-warning: $btn-hover-background-warning !default;
-$btn-hover-color-warning: $white !default;
+$btn-hover-color-secondary: $white !default;
+$btn-hover-background-secondary: darken($secondary, 10%) !default;
+$btn-hover-border-color-secondary: $secondary !default;
 
 // Forms
 $input-font-size: $font-size-base; // font size for forms elements
@@ -228,16 +234,21 @@ $inpH: $input-border-width + 2 * $input-padding-vertical + $input-line-height;
 $input-height: (
     2 * ($input-border-width + $input-padding-vertical) + $input-line-height) !default; // height for forms elements
 //submit
-$submit-background: $btn-background;
-$submit-color: $btn-color;
+$submit-background: $btn-background-default;
+$submit-color: $btn-color-default;
 $submit-height: $input-height;
-$submit-border: $btn-border;
-$submit-padding: $input-padding;
+$submit-border-width: $btn-border-width;
+$submit-border-style: solid;
+$submit-border-color: $btn-border-color-default;
+$submit-padding: $btn-padding;
 $submit-font-size: $input-font-size;
-$submit-line-height: $input-line-height;
+$submit-line-height: $btn-line-height;
+$submit-radius: $btn-border-radius;
 // submit hover
-$submit-hover-background: $btn-hover-background; // submit background hover
-$submit-hover-color: $btn-hover-color; // submit color hover
+$submit-hover-background: $submit-color; // submit background hover
+$submit-hover-color: $submit-background; // submit color hover
+$submit-hover-border-color: $submit-background; // submit color hover
+
 //focus
 $input-focus-border-color: $black !default; // border color for forms elements
 //placeholder

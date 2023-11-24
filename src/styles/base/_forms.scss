@@ -65,11 +65,17 @@ input[type='submit'] {
     font-size: $submit-font-size;
     line-height: $submit-line-height;
     color: $submit-color;
-    outline: none;
-    cursor: pointer;
-    border: $submit-border;
-    border-radius: $input-border-radius;
     background: $submit-background;
+
+    border: {
+        width: $submit-border-width;
+        style: $submit-border-style;
+        color: $submit-border-color;
+        radius: $submit-radius;
+    }
+
+    cursor: pointer;
+    transition: all $animation-speed;
 
     &:hover {
         background: $submit-hover-background;

@@ -2,31 +2,69 @@
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 .btn {
-    @include button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color);
-    border: $btn-border;
-    border-radius: $btn-border-radius;
     display: inline-block;
-    font-size: $btn-font-size;
-    line-height: $btn-line-height;
     padding: $btn-padding;
-    vertical-align: top;
+    font-size: $btn-font-size;
     text-align: center;
+    line-height: $btn-line-height;
+    vertical-align: top;
+    transition: all $animation-speed;
 
-    &-default {
-        @include button-color($btn-background, $btn-color, $btn-border, $btn-hover-background, $btn-hover-border, $btn-hover-color);
+    border: {
+        style: solid;
+        color: transparent;
+        width: $btn-border-width;
+        radius: $btn-border-radius;
     }
 
-    &-primary {
-        @include button-color($btn-background-primary, $btn-color-primary, $btn-border-primary, $btn-hover-background-primary, $btn-hover-border-primary, $btn-hover-color-primary);
+    &--default {
+        color: $btn-color-default;
+        background: $btn-background-default;
+        border-color: $btn-border-color-default;
+
+        &:hover {
+            color: $btn-hover-color-default;
+            background: $btn-hover-background-default;
+            border-color: $btn-hover-border-color-default;
+        }
     }
 
-    &-warning {
-        @include button-color($btn-background-warning, $btn-color-warning, $btn-border-warning, $btn-hover-background-warning, $btn-hover-border-warning, $btn-hover-color-warning);
+    &--primary {
+        color: $btn-color-primary;
+        background: $btn-background-primary;
+        border-color: $btn-border-color-primary;
+
+        &:hover {
+            color: $btn-hover-color-primary;
+            background: $btn-hover-background-primary;
+            border-color: $btn-hover-border-color-primary;
+        }
     }
 
-    &-sm {
+    &--secondary {
+        color: $btn-color-secondary;
+        background: $btn-background-secondary;
+        border-color: $btn-border-color-secondary;
+
+        &:hover {
+            color: $btn-hover-color-secondary;
+            background: $btn-hover-background-secondary;
+            border-color: $btn-hover-border-color-secondary;
+        }
+    }
+
+    &--sm {
+        padding: $btn-padding-sm;
+        font-size: $btn-font-size-sm;
+        line-height: $btn-line-height-sm;
         border-radius: $btn-border-radius-sm;
-        padding: 4px 10px;
+    }
+
+    &--lg {
+        padding: $btn-padding-lg;
+        font-size: $btn-font-size-lg;
+        line-height: $btn-line-height-lg;
+        border-radius: $btn-border-radius-lg;
     }
 }
 

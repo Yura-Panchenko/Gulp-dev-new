@@ -6,7 +6,7 @@ module.exports = {
 	publicDir,
 	devDir,
 	wpDir,
-	isWP: false,
+	isWP: true,
 	isPug: true,
 	assetsDir: {
 		entry: `${devDir}/assets`,
