@@ -9,16 +9,29 @@
 }
 
 %navWPBtn {
-    background: $btn-background;
-    color: $btn-color;
-    border: $btn-border;
+    display: inline-block;
     padding: $btn-padding;
     font-size: $btn-font-size;
+    text-align: center;
     line-height: $btn-line-height;
+    vertical-align: top;
+    transition: all $animation-speed;
+
+    border: {
+        style: solid;
+        color: transparent;
+        width: $btn-border-width;
+        radius: $btn-border-radius;
+    }
+
+    color: $btn-color-default;
+    background: $btn-background-default;
+    border-color: $btn-border-color-default;
 
     &:hover {
-        background: $btn-hover-background;
-        color: $btn-hover-color;
+        color: $btn-hover-color-default;
+        background: $btn-hover-background-default;
+        border-color: $btn-hover-border-color-default;
     }
 }
 
@@ -175,7 +188,6 @@
 
             display: block;
             padding: $btn-padding;
-            border: $btn-border;
 
             @include media('<tablet') {
                 font-size: 0;
@@ -284,7 +296,6 @@
 .wp-caption {
     max-width: 100%;
     clear: both;
-    border: $btn-border;
     padding: 4px;
     margin-bottom: 20px;
     text-align: center;
