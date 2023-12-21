@@ -17,7 +17,7 @@
         radius: $btn-border-radius;
     }
 
-    &--default {
+    &-default {
         color: $btn-color-default;
         background: $btn-background-default;
         border-color: $btn-border-color-default;
@@ -29,7 +29,7 @@
         }
     }
 
-    &--primary {
+    &-primary {
         color: $btn-color-primary;
         background: $btn-background-primary;
         border-color: $btn-border-color-primary;
@@ -41,7 +41,7 @@
         }
     }
 
-    &--secondary {
+    &-secondary {
         color: $btn-color-secondary;
         background: $btn-background-secondary;
         border-color: $btn-border-color-secondary;
@@ -53,14 +53,14 @@
         }
     }
 
-    &--sm {
+    &-sm {
         padding: $btn-padding-sm;
         font-size: $btn-font-size-sm;
         line-height: $btn-line-height-sm;
         border-radius: $btn-border-radius-sm;
     }
 
-    &--lg {
+    &-lg {
         padding: $btn-padding-lg;
         font-size: $btn-font-size-lg;
         line-height: $btn-line-height-lg;

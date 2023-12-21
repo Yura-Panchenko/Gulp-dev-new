@@ -1,9 +1,17 @@
+-var curentClass = 'about';
 include ./pug/common/_head
     block content
         include ./pug/common/_header
         main#main
             section.jumbotron
                 .container
+                    <h2> asas</h2
+                    ul
+                        li(class={active: curentClass === 'home'}): a(href="index.html") home
+                        li(class={active: curentClass === 'about'}): a(href="about.html") about  us
+                        li(class={active: curentClass === 'properties'}): a(href="properties.html") properties
+                        li(class={active: curentClass === 'region'}): a(href="region.html") the region
+                        li(class={active: curentClass === 'contact'}): a(href="contact.html") contact us
                     h1 Title h1
                     h2 Title h2
                     h3 Title h3
@@ -11,7 +19,7 @@ include ./pug/common/_head
                     h5 Title h5
                     h6 Title h6
                     ul
-                        li Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
+                        li: a(href="#"): span: i #[b Lorem ipsum] dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
                         li Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
                         li Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
                     p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique. 
@@ -20,14 +28,14 @@ include ./pug/common/_head
                         li Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
                         li Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quis amet aspernatur, veritatis nesciunt inventore eveniet eum quod quibusdam, quidem qui maiores! Quidem nostrum perferendis ut, iusto animi ipsa placeat?
                     p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique. 
-                    p: a.btn.btn--default(href="#") Button default
-                    p: a.btn.btn--primary(href="#") Button primary
-                    p: a.btn.btn--secondary(href="#") Button secondary
-                    p: a.btn.btn--default.btn--sm(href="#") Button default small
-                    p: a.btn.btn--primary.btn--sm(href="#") Button primary small
-                    p: a.btn.btn--secondary.btn--sm(href="#") Button secondary small
-                    p: a.btn.btn--default.btn--lg(href="#") Button default large
-                    p: a.btn.btn--primary.btn--lg(href="#") Button primary large
-                    p: a.btn.btn--secondary.btn--lg(href="#") Button secondary large
+                    p: a.btn.btn-default(href="#") Button default
+                    p: a.btn.btn-primary(href="#") Button primary
+                    p: a.btn.btn-secondary(href="#") Button secondary
+                    p: a.btn.btn-default.btn-sm(href="#") Button default small
+                    p: a.btn.btn-primary.btn-sm(href="#") Button primary small
+                    p: a.btn.btn-secondary.btn-sm(href="#") Button secondary small
+                    p: a.btn.btn-default.btn-lg(href="#") Button default large
+                    p: a.btn.btn-primary.btn-lg(href="#") Button primary large
+                    p: a.btn.btn-secondary.btn-lg(href="#") Button secondary large
                     include ./pug/template/_form
         include ./pug/common/_footer

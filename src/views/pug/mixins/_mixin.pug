@@ -144,8 +144,9 @@ mixin card(obj)
 //- })
 mixin rowImageText(obj)
     .row-image-text(class=obj.reverse ? 'row-image-text--reverse': '')
-        .row-image-text__col
-            .row-image-text__visual: img(src="images/"+obj.image, alt="image")
+        -if (obj.image)
+            .row-image-text__col
+                .row-image-text__visual: img(src="images/"+obj.image, alt="image")
         .row-image-text__col
             .row-image-text__content
                 h5!=obj.title
